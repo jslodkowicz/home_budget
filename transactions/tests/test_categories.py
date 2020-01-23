@@ -25,3 +25,4 @@ class CategoryApiTests(TestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(len(res.data), 2)
         self.assertEqual(res.data, serializer.data)
+
