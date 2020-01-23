@@ -35,7 +35,7 @@
     "model": "transactions.transaction",
     "pk": 2,
     "fields": {
-      "title": "paczek",
+      "title": "pączek",
       "amount": "2.30",
       "type": "exp",
       "category": 1,
@@ -57,7 +57,7 @@
     "model": "transactions.transaction",
     "pk": 4,
     "fields": {
-      "title": "zarowki",
+      "title": "żarówki",
       "amount": "65.99",
       "type": "exp",
       "category": 2,
