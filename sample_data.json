@@ -1,0 +1,78 @@
+[
+  {
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$180000$XrQ0so0JleWR$L1TrOoe7CvA2NzfkbMg+yHor82SKMNGja8hCLccffHY=",
+      "last_login": "2020-01-22T20:42:53.671Z",
+      "is_superuser": true,
+      "username": "admin",
+      "first_name": "",
+      "last_name": "",
+      "email": "admin@example.com",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2020-01-22T20:37:01.451Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "transactions.category",
+    "pk": 1,
+    "fields": {
+      "name": "food"
+    }
+  },
+  {
+    "model": "transactions.category",
+    "pk": 2,
+    "fields": {
+      "name": "auto"
+    }
+  },
+  {
+    "model": "transactions.transaction",
+    "pk": 2,
+    "fields": {
+      "title": "paczek",
+      "amount": "2.30",
+      "type": "exp",
+      "category": 1,
+      "created": "2020-01-22T20:39:14Z"
+    }
+  },
+  {
+    "model": "transactions.transaction",
+    "pk": 3,
+    "fields": {
+      "title": "paliwo",
+      "amount": "209.83",
+      "type": "exp",
+      "category": 2,
+      "created": "2020-01-22T20:42:58Z"
+    }
+  },
+  {
+    "model": "transactions.transaction",
+    "pk": 4,
+    "fields": {
+      "title": "zarowki",
+      "amount": "65.99",
+      "type": "exp",
+      "category": 2,
+      "created": "2020-01-22T20:43:25Z"
+    }
+  },
+  {
+    "model": "transactions.transaction",
+    "pk": 5,
+    "fields": {
+      "title": "warzywa",
+      "amount": "13.00",
+      "type": "exp",
+      "category": 1,
+      "created": "2020-01-22T20:43:46Z"
+    }
+  }
+]
