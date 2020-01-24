@@ -1,6 +1,5 @@
 from django.db import models
 from django.utils import timezone
-from django.contrib.auth.models import User
 
 
 class Category(models.Model):
@@ -13,6 +12,14 @@ class Category(models.Model):
         verbose_name_plural = 'Categories'
 
 
+class Wallet(models.Model):
+    name = models.CharField(max_length=100, default='Default')
+    balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+
+    def __str__(self) -> str:
+        return f'{self.name} wallet'
+
+
 class Transaction(models.Model):
 
     TRANSACTION_TYPE = (
@@ -20,11 +27,16 @@ class Transaction(models.Model):
         ('inc', 'income'),
     )
 
+    wallet = models.ForeignKey(Wallet, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.SET(None))
     title = models.CharField(max_length=100)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     type = models.CharField(max_length=10, choices=TRANSACTION_TYPE)
-    category = models.ForeignKey(Category, on_delete=models.SET(None))
     created = models.DateTimeField(default=timezone.now)
 
+    # def save(self, *args, **kwargs):
+    #     self.wallet += self.amount
+    #     super(Transaction, self).save(*args, **kwargs)
+
     def __str__(self) -> str:
-        return f'{self.amount} zl - {self.title}'
+        return f'{self.amount} zł - {self.title}'
