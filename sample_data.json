@@ -3,8 +3,8 @@
     "model": "auth.user",
     "pk": 1,
     "fields": {
-      "password": "pbkdf2_sha256$180000$XrQ0so0JleWR$L1TrOoe7CvA2NzfkbMg+yHor82SKMNGja8hCLccffHY=",
-      "last_login": "2020-01-22T20:42:53.671Z",
+      "password": "pbkdf2_sha256$180000$GZKHpeZSQAQi$wAWLGldJBUyJZJqHEy7lrlMlp+8iePWdmrzQ/hNTXLE=",
+      "last_login": "2020-01-24T11:41:35.361Z",
       "is_superuser": true,
       "username": "admin",
       "first_name": "",
@@ -12,7 +12,7 @@
       "email": "admin@example.com",
       "is_staff": true,
       "is_active": true,
-      "date_joined": "2020-01-22T20:37:01.451Z",
+      "date_joined": "2020-01-24T11:41:04.245Z",
       "groups": [],
       "user_permissions": []
     }
@@ -21,58 +21,58 @@
     "model": "transactions.category",
     "pk": 1,
     "fields": {
-      "name": "food"
+      "name": "jedzenie"
     }
   },
   {
     "model": "transactions.category",
     "pk": 2,
     "fields": {
-      "name": "auto"
+      "name": "nauka"
+    }
+  },
+  {
+    "model": "transactions.wallet",
+    "pk": 1,
+    "fields": {
+      "name": "Default",
+      "balance": "0.00"
+    }
+  },
+  {
+    "model": "transactions.transaction",
+    "pk": 1,
+    "fields": {
+      "wallet": 1,
+      "category": 1,
+      "title": "p\u0105czki",
+      "amount": "2.50",
+      "type": "exp",
+      "created": "2020-01-24T11:42:13Z"
     }
   },
   {
     "model": "transactions.transaction",
     "pk": 2,
     "fields": {
-      "title": "pączek",
-      "amount": "2.30",
-      "type": "exp",
+      "wallet": 1,
       "category": 1,
-      "created": "2020-01-22T20:39:14Z"
+      "title": "pizza",
+      "amount": "100.00",
+      "type": "inc",
+      "created": "2020-01-24T11:42:31Z"
     }
   },
   {
     "model": "transactions.transaction",
     "pk": 3,
     "fields": {
-      "title": "paliwo",
-      "amount": "209.83",
-      "type": "exp",
+      "wallet": 1,
       "category": 2,
-      "created": "2020-01-22T20:42:58Z"
-    }
-  },
-  {
-    "model": "transactions.transaction",
-    "pk": 4,
-    "fields": {
-      "title": "żarówki",
-      "amount": "65.99",
+      "title": "ksi\u0105\u017cki",
+      "amount": "150.99",
       "type": "exp",
-      "category": 2,
-      "created": "2020-01-22T20:43:25Z"
-    }
-  },
-  {
-    "model": "transactions.transaction",
-    "pk": 5,
-    "fields": {
-      "title": "warzywa",
-      "amount": "13.00",
-      "type": "exp",
-      "category": 1,
-      "created": "2020-01-22T20:43:46Z"
+      "created": "2020-01-24T11:44:11Z"
     }
   }
 ]
