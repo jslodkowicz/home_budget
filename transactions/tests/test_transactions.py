@@ -3,7 +3,7 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APIClient
 
-from transactions.models import Transaction, Category
+from transactions.models import Transaction, Category, Wallet
 from transactions.serializers import TransactionSerializer
 
 
@@ -16,9 +16,10 @@ class TransactionApiTests(TestCase):
         self.client = APIClient()
 
     def test_retrieve_transactions_list(self):
+        wal = Wallet.objects.create()
         cat = Category.objects.create(name='jedzenie')
-        Transaction.objects.create(title='banany', amount=8.50, type='exp', category=cat)
-        Transaction.objects.create(title='warzywa', amount=20, type='exp', category=cat)
+        Transaction.objects.create(wallet=wal, title='banany', amount=8.50, type='exp', category=cat)
+        Transaction.objects.create(wallet=wal, title='warzywa', amount=20, type='exp', category=cat)
 
         res = self.client.get(TRANSACTIONS_URL)
 

@@ -7,6 +7,7 @@ from . import views
 router = DefaultRouter()
 router.register('category', views.CategoryViewSet)
 router.register('transaction', views.TransactionViewSet)
+router.register('wallet', views.WalletViewSet)
 
 app_name = 'home_budget'
 

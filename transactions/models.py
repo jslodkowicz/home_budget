@@ -34,9 +34,5 @@ class Transaction(models.Model):
     type = models.CharField(max_length=10, choices=TRANSACTION_TYPE)
     created = models.DateTimeField(default=timezone.now)
 
-    # def save(self, *args, **kwargs):
-    #     self.wallet += self.amount
-    #     super(Transaction, self).save(*args, **kwargs)
-
     def __str__(self) -> str:
         return f'{self.amount} zł - {self.title}'
