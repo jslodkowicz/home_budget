@@ -36,3 +36,8 @@ class Transaction(models.Model):
 
     def __str__(self) -> str:
         return f'{self.amount} zł - {self.title}'
+
+    def save(self, *args, **kwargs):
+        if self.type == 'exp':
+            self.amount = -abs(self.amount)
+        super(Transaction, self).save(*args, **kwargs)
