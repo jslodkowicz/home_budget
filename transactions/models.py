@@ -42,7 +42,16 @@ class Transaction(models.Model):
             self.wallet.save()
         super().save(*args, **kwargs)
 
+    def delete(self, *args, **kwargs):
+        if self.type == 'exp':
+            self.wallet.balance += self.amount
+            self.wallet.save()
+        elif self.type == 'inc':
+            self.wallet.balance -= self.amount
+            self.wallet.save()
+        super().save(*args, **kwargs)
+
     def __str__(self) -> str:
         if self.type == 'exp':
-            return f'-{self.amount} zł - {self.amount}'
+            return f'-{self.amount} zł - {self.title}'
         return f'{self.amount} zł - {self.title}'

@@ -14,5 +14,8 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('wallets/', views.wallets_list, name='wallets'),
     path('wallet/create/', views.WalletCreate.as_view(), name='wallet_create'),
-    path('wallet/<pk>/delete/', views.WalletDelete.as_view(), name='wallet_delete')
+    path('wallet/<pk>/delete/', views.WalletDelete.as_view(), name='wallet_delete'),
+    path('transactions/', views.transaction_list, name='transactions'),
+    path('transaction/create', views.TransactionCreate.as_view(), name='transaction_create'),
+    path('transaction/<pk>/delete/', views.TransactionDelete.as_view(), name='transaction_delete'),
 ]
