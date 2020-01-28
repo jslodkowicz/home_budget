@@ -50,15 +50,6 @@ class TransactionApiTests(TestCase):
         self.assertEqual(len(res.data), 2)
         self.assertEqual(res.data, serializer.data)
 
-    def test_transfer_between_wallets(self):
-        wal1 = Wallet.objects.create(user=self.user, balance=6000)
-        wal2 = Wallet.objects.create(user=self.user, name='Savings', balance=100000)
-
-        wal1.transfer(wal2, 1000)
-
-        self.assertEqual(wal1.balance, 5000)
-        self.assertEqual(wal2.balance, 101000)
-
     def test_expense(self):
         wallet = Wallet.objects.create(user=self.user, balance=600)
         wallet.expense(category='bills', title='telefon', amount=120.5)

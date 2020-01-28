@@ -8,7 +8,7 @@ class Wallet(models.Model):
     balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
     def __str__(self) -> str:
-        return f'{self.name} wallet - {self.balance} zł'
+        return f'{self.name} wallet ({self.balance} zł)'
 
     def expense(self, category, title, amount):
         self.transactions.create(
@@ -29,18 +29,6 @@ class Wallet(models.Model):
         )
         self.balance += amount
         self.save()
-
-    def transfer(self, wallet, amount):
-        self.expense(
-            category='transfer',
-            title=f'Transfer {amount} from {self.name} to {wallet}',
-            amount=amount,
-        )
-        wallet.income(
-            category='transfer',
-            title=f'Transfer {amount} from {self.name} to {wallet}',
-            amount=amount,
-        )
 
 
 class Transaction(models.Model):
