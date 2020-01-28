@@ -1,12 +1,7 @@
 from rest_framework import viewsets
 
-from .models import Category, Transaction, Wallet
-from .serializers import CategorySerializer, TransactionSerializer, WalletSerializer
-
-
-class CategoryViewSet(viewsets.ModelViewSet):
-    queryset = Category.objects.all()
-    serializer_class = CategorySerializer
+from .models import Transaction, Wallet
+from .serializers import TransactionSerializer, WalletSerializer
 
 
 class WalletViewSet(viewsets.ModelViewSet):

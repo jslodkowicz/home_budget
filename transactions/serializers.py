@@ -1,13 +1,6 @@
 from rest_framework import serializers
 
-from .models import Category, Transaction, Wallet
-
-
-class CategorySerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Category
-        fields = ('name',)
+from .models import Transaction, Wallet
 
 
 class TransactionSerializer(serializers.ModelSerializer):
