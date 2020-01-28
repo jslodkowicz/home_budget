@@ -8,27 +8,7 @@ class Wallet(models.Model):
     balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
     def __str__(self) -> str:
-        return f'{self.name} wallet ({self.balance} zł)'
-
-    def expense(self, category, title, amount):
-        self.transactions.create(
-            category=category,
-            title=title,
-            amount=amount,
-            type='exp',
-        )
-        self.balance -= amount
-        self.save()
-
-    def income(self, category, title, amount):
-        self.transactions.create(
-            category=category,
-            title=title,
-            amount=amount,
-            type='inc',
-        )
-        self.balance += amount
-        self.save()
+        return f'{self.name} ({self.balance} zł)'
 
 
 class Transaction(models.Model):
@@ -53,5 +33,16 @@ class Transaction(models.Model):
     type = models.CharField(max_length=10, choices=TRANSACTION_TYPE)
     created = models.DateTimeField(auto_now_add=True)
 
+    def save(self, *args, **kwargs):
+        if self.type == 'exp':
+            self.wallet.balance -= self.amount
+            self.wallet.save()
+        elif self.type == 'inc':
+            self.wallet.balance += self.amount
+            self.wallet.save()
+        super().save(*args, **kwargs)
+
     def __str__(self) -> str:
+        if self.type == 'exp':
+            return f'-{self.amount} zł - {self.amount}'
         return f'{self.amount} zł - {self.title}'

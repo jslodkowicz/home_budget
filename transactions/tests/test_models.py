@@ -52,16 +52,28 @@ class TransactionApiTests(TestCase):
 
     def test_expense(self):
         wallet = Wallet.objects.create(user=self.user, balance=600)
-        wallet.expense(category='bills', title='telefon', amount=120.5)
-        self.assertEqual(wallet.balance, 479.5)
-        wallet.expense(category='food', title='pizza', amount=79.5)
-        self.assertEqual(wallet.balance, 400)
-        wallet.expense(category='bills', title='flat', amount=1000)
-        self.assertEqual(wallet.balance, -600)
+        payload = {
+            'wallet': wallet.id,
+            'title': 'banany',
+            'amount': 12.30,
+            'type': 'exp',
+            'category': 'food'
+        }
+        res = self.client.post(TRANSACTIONS_URL, payload)
+        self.assertEqual(res.status_code, status.HTTP_201_CREATED)
+        wallet.refresh_from_db()
+        self.assertEqual(float(wallet.balance), 587.70)
 
     def test_income(self):
-        wallet = Wallet.objects.create(user=self.user, balance=-100)
-        wallet.income(category='income', title='zwrot', amount=100)
-        self.assertEqual(wallet.balance, 0)
-        wallet.income(category='income', title='wypłata', amount=10000)
-        self.assertEqual(wallet.balance, 10000)
+        wallet = Wallet.objects.create(user=self.user, balance=600)
+        payload = {
+            'wallet': wallet.id,
+            'title': 'banany',
+            'amount': 12.30,
+            'type': 'inc',
+            'category': 'food'
+        }
+        res = self.client.post(TRANSACTIONS_URL, payload)
+        self.assertEqual(res.status_code, status.HTTP_201_CREATED)
+        wallet.refresh_from_db()
+        self.assertEqual(float(wallet.balance), 612.30)
