@@ -1,23 +1,46 @@
 from django.db import models
-from django.utils import timezone
-
-
-class Category(models.Model):
-    name = models.CharField(max_length=100)
-
-    def __str__(self) -> str:
-        return self.name
-
-    class Meta:
-        verbose_name_plural = 'Categories'
+from django.contrib.auth.models import User
 
 
 class Wallet(models.Model):
+    user = models.ForeignKey(User, related_name='wallets', on_delete=models.CASCADE)
     name = models.CharField(max_length=100, default='Default')
     balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
     def __str__(self) -> str:
-        return f'{self.name} wallet'
+        return f'{self.name} wallet - {self.balance} zł'
+
+    def expense(self, category, title, amount):
+        self.transactions.create(
+            category=category,
+            title=title,
+            amount=amount,
+            type='exp',
+        )
+        self.balance -= amount
+        self.save()
+
+    def income(self, category, title, amount):
+        self.transactions.create(
+            category=category,
+            title=title,
+            amount=amount,
+            type='inc',
+        )
+        self.balance += amount
+        self.save()
+
+    def transfer(self, wallet, amount):
+        self.expense(
+            category='transfer',
+            title=f'Transfer {amount} from {self.name} to {wallet}',
+            amount=amount,
+        )
+        wallet.income(
+            category='transfer',
+            title=f'Transfer {amount} from {self.name} to {wallet}',
+            amount=amount,
+        )
 
 
 class Transaction(models.Model):
@@ -26,18 +49,21 @@ class Transaction(models.Model):
         ('exp', 'expense'),
         ('inc', 'income'),
     )
+    CATEGORY = (
+        ('food', 'food'),
+        ('bills', 'bills'),
+        ('car', 'car'),
+        ('transport', 'transport'),
+        ('income', 'income'),
+        ('transfer', 'transfer')
+    )
 
-    wallet = models.ForeignKey(Wallet, on_delete=models.CASCADE)
-    category = models.ForeignKey(Category, on_delete=models.SET(None))
+    wallet = models.ForeignKey(Wallet, related_name='transactions', on_delete=models.CASCADE)
+    category = models.CharField(max_length=50, choices=CATEGORY)
     title = models.CharField(max_length=100)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     type = models.CharField(max_length=10, choices=TRANSACTION_TYPE)
-    created = models.DateTimeField(default=timezone.now)
+    created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:
         return f'{self.amount} zł - {self.title}'
-
-    def save(self, *args, **kwargs):
-        if self.type == 'exp':
-            self.amount = -abs(self.amount)
-        super(Transaction, self).save(*args, **kwargs)
