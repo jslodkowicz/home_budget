@@ -40,6 +40,6 @@ class Transaction(models.Model):
         super().delete(*args, **kwargs)
 
     def __str__(self) -> str:
-        if self.type == 'exp':
+        if self.type == 'EXPENSE':
             return f'-{self.amount} zł - {self.title}'
         return f'{self.amount} zł - {self.title}'
