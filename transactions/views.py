@@ -1,6 +1,7 @@
 from django.urls import reverse_lazy
 from django.shortcuts import render
 from django.views.generic.edit import CreateView, DeleteView
+from django.views.generic.list import ListView
 from rest_framework import viewsets
 
 
@@ -29,9 +30,8 @@ class WalletDelete(DeleteView):
     success_url = reverse_lazy('home_budget:wallets')
 
 
-def wallets_list(request):
-    wallets = Wallet.objects.all()
-    return render(request, 'transactions/wallets_list.html', {'wallets': wallets})
+class WalletList(ListView):
+    model = Wallet
 
 
 class TransactionCreate(CreateView):
@@ -45,6 +45,5 @@ class TransactionDelete(DeleteView):
     success_url = reverse_lazy('home_budget:transactions')
 
 
-def transaction_list(request):
-    transactions = Transaction.objects.all()
-    return render(request, 'transactions/transactions_list.html', {'transactions': transactions})
+class TransactionList(ListView):
+    model = Transaction
