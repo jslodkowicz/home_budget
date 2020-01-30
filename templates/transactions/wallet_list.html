@@ -1,6 +1,10 @@
-<h4><a href="{% url 'home_budget:transactions' %}">Transactions</a></h4>
-<p><a href="{% url 'home_budget:wallet_create' %}">Create new wallet</a></p>
-{% for wallet in object_list %}
-    <p>{{ wallet }} | <a href="{% url 'home_budget:wallet_delete' wallet.id %}">Delete</a>
-    | <a href="{% url 'home_budget:wallet_detail' wallet.id %}">Detail</a></p>
-{% endfor %}
+{% extends 'base.html' %}
+
+{% block content %}
+    <h4><a href="{% url 'home_budget:transactions' %}">Transactions</a></h4>
+    <p><a href="{% url 'home_budget:wallet_create' %}">Create new wallet</a></p>
+    {% for wallet in object_list %}
+        <p>{{ wallet }} | <a href="{% url 'home_budget:wallet_delete' wallet.id %}">Delete</a>
+        | <a href="{% url 'home_budget:wallet_detail' wallet.id %}">Detail</a></p>
+    {% endfor %}
+{% endblock %}

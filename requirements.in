@@ -2,4 +2,5 @@ pip-tools
 django
 djangorestframework
 mysqlclient
+django-crispy-forms
 flake8
