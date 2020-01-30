@@ -84,7 +84,7 @@ DATABASES = {
         'NAME': 'db',
         'USER': 'admin',
         'PASSWORD': 'admin',
-        'HOST': '127.0.0.1',
+        'HOST': 'db',
         'PORT': '3306',
         'OPTIONS': {
             'charset': 'utf8mb4',

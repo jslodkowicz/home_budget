@@ -39,8 +39,10 @@ class TransactionApiTests(TestCase):
 
     def test_retrieve_transactions_list(self):
         wal = Wallet.objects.create(user=self.user)
-        Transaction.objects.create(wallet=wal, title='banany', amount=8.50, type='exp', category='food')
-        Transaction.objects.create(wallet=wal, title='warzywa', amount=20, type='exp', category='food')
+        Transaction.objects.create(wallet=wal, title='banany', amount=8.50,
+                                   type='exp', category='food')
+        Transaction.objects.create(wallet=wal, title='warzywa', amount=20,
+                                   type='exp', category='food')
 
         res = self.client.get(TRANSACTIONS_URL)
 
@@ -56,8 +58,8 @@ class TransactionApiTests(TestCase):
             'wallet': wallet.id,
             'title': 'banany',
             'amount': 12.30,
-            'type': 'exp',
-            'category': 'food'
+            'type': 'EXPENSE',
+            'category': 'FOOD'
         }
         res = self.client.post(TRANSACTIONS_URL, payload)
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
@@ -70,8 +72,8 @@ class TransactionApiTests(TestCase):
             'wallet': wallet.id,
             'title': 'banany',
             'amount': 12.30,
-            'type': 'inc',
-            'category': 'food'
+            'type': 'INCOME',
+            'category': 'FOOD'
         }
         res = self.client.post(TRANSACTIONS_URL, payload)
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)

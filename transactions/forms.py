@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Wallet, Transaction
+from .models import Wallet
 
 
 class TransferForm(forms.Form):

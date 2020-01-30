@@ -5,7 +5,8 @@ from .enums import TransactionTypes, TransactionCategories
 
 
 class Wallet(models.Model):
-    user = models.ForeignKey(User, related_name='wallets', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name='wallets',
+                             on_delete=models.CASCADE)
     name = models.CharField(max_length=100, default='Default')
     balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
@@ -14,8 +15,10 @@ class Wallet(models.Model):
 
 
 class Transaction(models.Model):
-    wallet = models.ForeignKey(Wallet, related_name='transactions', on_delete=models.CASCADE)
-    category = models.CharField(max_length=50, choices=TransactionCategories.choices())
+    wallet = models.ForeignKey(Wallet, related_name='transactions',
+                               on_delete=models.CASCADE)
+    category = models.CharField(max_length=50,
+                                choices=TransactionCategories.choices())
     title = models.CharField(max_length=100)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     type = models.CharField(max_length=50, choices=TransactionTypes.choices())

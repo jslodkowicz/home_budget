@@ -3,4 +3,4 @@ deps:
 data:
 	python manage.py loaddata sample_data.json
 test:
-	python manage.py test
+	python manage.py test && flake8
