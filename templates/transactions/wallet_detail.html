@@ -1,17 +1,21 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>{{ wallet.name }}</h1>
-    <h3>User: {{ wallet.user }}</h3>
-    <h3>Balance: {{ wallet.balance }}zł</h3>
-    <h3>Transactions:</h3>
+    <h3>{{ wallet.user }}'s {{ wallet.name }} wallet</h3>
+    <h3>{{ wallet.balance }}zł</h3>
     {% if wallet.transactions.all %}
         {% for transaction in wallet.transactions.all %}
-            <p>{{ transaction }} | {{ transaction.created }}</p>
+            {% if transaction.type == 'EXPENSE' %}
+                <small>{{ transaction.created }}</small>
+                <p><span class="font-weight-bold" style="color: red">{{ transaction }}</span> | <a href="{% url 'home_budget:transaction_delete' transaction.id %}">Delete</a>
+                | <a href="{% url 'home_budget:transaction_detail' transaction.id %}">Detail</a></p>
+            {% else %}
+                <small>{{ transaction.created }}</small>
+                <p><span class="font-weight-bold" style="color: green">{{ transaction }}</span> | <a href="{% url 'home_budget:transaction_delete' transaction.id %}">Delete</a>
+                | <a href="{% url 'home_budget:transaction_detail' transaction.id %}">Detail</a></p>
+            {% endif %}
         {% endfor %}
     {% else %}
-    <p>No transactions yet on this wallet</p>
-{% endif %}
+        <p>No transactions yet on this wallet</p>
+    {% endif %}
 {% endblock %}
-
-
