@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h4><a href="{% url 'home_budget:transactions' %}">Transactions</a></h4>
     <p><a href="{% url 'home_budget:wallet_create' %}">Create new wallet</a></p>
     {% for wallet in object_list %}
         <p><span class="font-weight-bold">{{ wallet }}</span> | <a href="{% url 'home_budget:wallet_delete' wallet.id %}">Delete</a>
