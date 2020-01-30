@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h4><a href="{% url 'home_budget:wallets' %}">Wallets</a></h4>
+
     <p><a href="{% url 'home_budget:transaction_create' %}">Create new transaction</a></p>
     {% for transaction in object_list %}
         {% if transaction.type == 'EXPENSE' %}
