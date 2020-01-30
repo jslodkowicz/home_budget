@@ -1,0 +1,5 @@
+<h4><a href="{% url 'home_budget:wallets' %}">Wallets</a></h4>
+<p><a href="{% url 'home_budget:transaction_create' %}">Create new transaction</a></p>
+{% for transaction in object_list %}
+    <p>{{ transaction }} | <a href="{% url 'home_budget:transaction_delete' transaction.id %}">Delete</a></p>
+{% endfor %}

@@ -3,8 +3,8 @@
     "model": "auth.user",
     "pk": 1,
     "fields": {
-      "password": "pbkdf2_sha256$180000$GZKHpeZSQAQi$wAWLGldJBUyJZJqHEy7lrlMlp+8iePWdmrzQ/hNTXLE=",
-      "last_login": "2020-01-24T11:41:35.361Z",
+      "password": "pbkdf2_sha256$180000$vG1v1gk9Ztu1$PqS2E97X1zTSZXbIaq5ZHKK0WmOJLMSPxiK6XjpgEBw=",
+      "last_login": "2020-01-29T12:09:40.798Z",
       "is_superuser": true,
       "username": "admin",
       "first_name": "",
@@ -12,31 +12,45 @@
       "email": "admin@example.com",
       "is_staff": true,
       "is_active": true,
-      "date_joined": "2020-01-24T11:41:04.245Z",
+      "date_joined": "2020-01-29T12:09:12.118Z",
       "groups": [],
       "user_permissions": []
     }
   },
   {
-    "model": "transactions.category",
-    "pk": 1,
-    "fields": {
-      "name": "jedzenie"
-    }
-  },
-  {
-    "model": "transactions.category",
+    "model": "auth.user",
     "pk": 2,
     "fields": {
-      "name": "nauka"
+      "password": "pbkdf2_sha256$180000$Hcm80BPWEUtr$sh593tqfmkPJ/K94J6KdSb70/Bp6b728Ml4sq8UvlC4=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "user",
+      "first_name": "Henry",
+      "last_name": "Test",
+      "email": "henry@test.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2020-01-29T12:10:10Z",
+      "groups": [],
+      "user_permissions": []
     }
   },
   {
     "model": "transactions.wallet",
     "pk": 1,
     "fields": {
+      "user": 2,
       "name": "Default",
-      "balance": "0.00"
+      "balance": "1297.25"
+    }
+  },
+  {
+    "model": "transactions.wallet",
+    "pk": 2,
+    "fields": {
+      "user": 2,
+      "name": "Savings",
+      "balance": "15000.00"
     }
   },
   {
@@ -44,11 +58,11 @@
     "pk": 1,
     "fields": {
       "wallet": 1,
-      "category": 1,
-      "title": "p\u0105czki",
-      "amount": "2.50",
-      "type": "exp",
-      "created": "2020-01-24T11:42:13Z"
+      "category": "INCOME",
+      "title": "Wyplata",
+      "amount": "2000.00",
+      "type": "INCOME",
+      "created": "2020-01-29T12:12:00.554Z"
     }
   },
   {
@@ -56,11 +70,11 @@
     "pk": 2,
     "fields": {
       "wallet": 1,
-      "category": 1,
-      "title": "pizza",
-      "amount": "100.00",
-      "type": "inc",
-      "created": "2020-01-24T11:42:31Z"
+      "category": "FOOD",
+      "title": "zakupy",
+      "amount": "350.43",
+      "type": "EXPENSE",
+      "created": "2020-01-29T12:12:21.925Z"
     }
   },
   {
@@ -68,11 +82,23 @@
     "pk": 3,
     "fields": {
       "wallet": 1,
-      "category": 2,
-      "title": "ksi\u0105\u017cki",
-      "amount": "150.99",
-      "type": "exp",
-      "created": "2020-01-24T11:44:11Z"
+      "category": "BILLS",
+      "title": "rachunki",
+      "amount": "422.32",
+      "type": "EXPENSE",
+      "created": "2020-01-29T12:12:44.224Z"
+    }
+  },
+  {
+    "model": "transactions.transaction",
+    "pk": 4,
+    "fields": {
+      "wallet": 1,
+      "category": "TRANSPORT",
+      "title": "migawka",
+      "amount": "230.00",
+      "type": "EXPENSE",
+      "created": "2020-01-29T12:13:11.663Z"
     }
   }
 ]
