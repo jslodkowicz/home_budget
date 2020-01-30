@@ -26,18 +26,20 @@ class Transaction(models.Model):
             super().save(*args, **kwargs)
             self.wallet.balance -= self.amount
             self.wallet.save()
-        super().save(*args, **kwargs)
-        self.wallet.balance += self.amount
-        self.wallet.save()
+        else:
+            super().save(*args, **kwargs)
+            self.wallet.balance += self.amount
+            self.wallet.save()
 
     def delete(self, *args, **kwargs):
         if self.type == 'EXPENSE':
             super().delete(*args, **kwargs)
             self.wallet.balance += self.amount
             self.wallet.save()
-        super().delete(*args, **kwargs)
-        self.wallet.balance -= self.amount
-        self.wallet.save()
+        else:
+            super().delete(*args, **kwargs)
+            self.wallet.balance -= self.amount
+            self.wallet.save()
 
     def __str__(self) -> str:
         if self.type == 'EXPENSE':
