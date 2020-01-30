@@ -1,7 +1,11 @@
-<h1>{{ wallet.name }}</h1>
-<h3>User: {{ wallet.user }}</h3>
-<h3>Balance: {{ wallet.balance }}zł</h3>
-<h3>Transactions:</h3>
-{% for transaction in wallet.transactions.all %}
-    <p>{{ transaction }} | {{ transaction.created }}</p>
-{% endfor %}
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{{ wallet.name }}</h1>
+    <h3>User: {{ wallet.user }}</h3>
+    <h3>Balance: {{ wallet.balance }}zł</h3>
+    <h3>Transactions:</h3>
+    {% for transaction in wallet.transactions.all %}
+        <p>{{ transaction }} | {{ transaction.created }}</p>
+    {% endfor %}
+{% endblock %}

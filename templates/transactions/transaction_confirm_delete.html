@@ -1,5 +1,9 @@
-<form method="post">
-    {% csrf_token %}
-    <p>Are you sure you want to delete {{ transaction.name }}?</p>
-    <input type="submit" value="Delete">
-</form>
+{% extends 'base.html' %}
+
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        <p>Are you sure you want to delete {{ transaction.name }}?</p>
+        <input type="submit" class="btn btn-danger" value="Delete">
+    </form>
+{% endblock %}
