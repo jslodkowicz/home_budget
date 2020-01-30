@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
     <p><a href="{% url 'home_budget:transaction_create' %}">Create new transaction</a></p>
     {% for transaction in object_list %}
         {% if transaction.type == 'EXPENSE' %}
+            <small>{{ transaction.created }}</small>
             <p><span class="font-weight-bold" style="color: red">{{ transaction }}</span> | <a href="{% url 'home_budget:transaction_delete' transaction.id %}">Delete</a>
             | <a href="{% url 'home_budget:transaction_detail' transaction.id %}">Detail</a></p>
         {% else %}
+            <small>{{ transaction.created }}</small>
             <p><span class="font-weight-bold" style="color: green">{{ transaction }}</span> | <a href="{% url 'home_budget:transaction_delete' transaction.id %}">Delete</a>
             | <a href="{% url 'home_budget:transaction_detail' transaction.id %}">Detail</a></p>
         {% endif %}
