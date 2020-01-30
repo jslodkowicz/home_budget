@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <title>Home Budget</title>
 </head>
@@ -33,6 +33,56 @@
               <hr class="mt-0 mb-4">
                 {% block content %}
                 {% endblock %}
+{#                {% if is_paginated %}#}
+{#                  <ul class="pagination">#}
+{#                    {% if page_obj.has_previous %}#}
+{#                      <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>#}
+{#                    {% else %}#}
+{#                      <li class="disabled"><span>&laquo;</span></li>#}
+{#                    {% endif %}#}
+{#                    {% for i in paginator.page_range %}#}
+{#                      {% if page_obj.number == i %}#}
+{#                        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>#}
+{#                      {% else %}#}
+{#                        <li><a href="?page={{ i }}">{{ i }}</a></li>#}
+{#                      {% endif %}#}
+{#                    {% endfor %}#}
+{#                    {% if page_obj.has_next %}#}
+{#                      <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>#}
+{#                    {% else %}#}
+{#                      <li class="disabled"><span>&raquo;</span></li>#}
+{#                    {% endif %}#}
+{#                  </ul>#}
+{#                {% endif %}#}
+          {% if is_paginated %}
+            <ul class="pagination">
+                {% if page_obj.has_previous %}
+                    <li class="page-item">
+                      <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                      <span class="page-link">Previous</span>
+                    </li>
+                {% endif %}
+                {% for i in paginator.page_range %}
+                    {% if page_obj.number == i %}
+                        <li class="page-item active"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                    <li class="page-item">
+                      <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                      <span class="page-link">Next</span>
+                    </li>
+                {% endif %}
+            </ul>
+          {% endif %}
           </div>
       </div>
   </div>
