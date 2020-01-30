@@ -53,7 +53,7 @@ class TransactionDelete(DeleteView):
 
 class TransactionList(ListView):
     model = Transaction
-    paginate_by = 15
+    paginate_by = 10
     ordering = ['-created']
 
 
