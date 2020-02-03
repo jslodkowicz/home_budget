@@ -1,12 +1,13 @@
 from django.urls import reverse_lazy
-from django.views.generic.edit import CreateView, DeleteView
+from django.views.generic.edit import CreateView, DeleteView, FormView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from rest_framework import viewsets
-
+from django.http import HttpResponseRedirect
 
 from .models import Transaction, Wallet
 from .serializers import TransactionSerializer, WalletSerializer
+from .forms import TransferForm
 
 
 class WalletViewSet(viewsets.ModelViewSet):
@@ -34,6 +35,10 @@ class WalletList(ListView):
     model = Wallet
 
 
+class WalletDetail(DetailView):
+    model = Wallet
+
+
 class TransactionCreate(CreateView):
     model = Transaction
     fields = ['wallet', 'category', 'title', 'amount', 'type']
@@ -47,3 +52,31 @@ class TransactionDelete(DeleteView):
 
 class TransactionList(ListView):
     model = Transaction
+    paginate_by = 10
+    ordering = ['-created']
+
+
+class TransactionDetail(DetailView):
+    model = Transaction
+
+
+class Transfer(FormView):
+    form_class = TransferForm
+    template_name = 'transactions/transfer.html'
+    success_url = 'wallets/'
+
+    def form_valid(self, form):
+        cd = form.cleaned_data
+        cd['wallet_from'].transactions.create(
+            category='TRANSFER',
+            title=cd['title'],
+            amount=cd['amount'],
+            type='EXPENSE'
+        )
+        cd['wallet_to'].transactions.create(
+            category='TRANSFER',
+            title=cd['title'],
+            amount=cd['amount'],
+            type='INCOME'
+        )
+        return HttpResponseRedirect('/wallets/')

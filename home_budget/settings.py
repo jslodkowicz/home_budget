@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'transactions',
-
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -84,7 +84,7 @@ DATABASES = {
         'NAME': 'db',
         'USER': 'admin',
         'PASSWORD': 'admin',
-        'HOST': '127.0.0.1',
+        'HOST': 'db',
         'PORT': '3306',
         'OPTIONS': {
             'charset': 'utf8mb4',
@@ -135,3 +135,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
