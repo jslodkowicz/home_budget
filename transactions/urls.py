@@ -25,5 +25,5 @@ urlpatterns = [
          name='transaction_create'),
     path('transaction/<pk>/delete/', views.TransactionDelete.as_view(),
          name='transaction_delete'),
-    path('transfer/', views.transfer, name='transfer'),
+    path('transfer/', views.Transfer.as_view(), name='transfer'),
 ]
