@@ -5,14 +5,14 @@ from .models import Wallet
 
 class TransferForm(forms.Form):
     wallet_from = forms.ModelChoiceField(
-        queryset=Wallet.objects.all(),
+        queryset=Wallet.objects.filter(user__is_active=True),
         to_field_name='name',
-        label='From'
+        label='From',
     )
     wallet_to = forms.ModelChoiceField(
-        queryset=Wallet.objects.all(),
+        queryset=Wallet.objects.filter(user__is_active=True),
         to_field_name='name',
-        label='To'
+        label='To',
     )
     title = forms.CharField(max_length=100)
     amount = forms.DecimalField(max_digits=10, decimal_places=2)
