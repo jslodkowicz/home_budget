@@ -1,16 +1,16 @@
 from django import forms
-
 from .models import Wallet
 
 
 class TransferForm(forms.Form):
+
     wallet_from = forms.ModelChoiceField(
-        queryset=Wallet.objects.filter(user__is_active=True),
+        queryset=Wallet.objects.filter(user__is_active__exact=True),
         to_field_name='name',
         label='From',
     )
     wallet_to = forms.ModelChoiceField(
-        queryset=Wallet.objects.filter(user__is_active=True),
+        queryset=Wallet.objects.filter(user__is_active__exact=True),
         to_field_name='name',
         label='To',
     )
