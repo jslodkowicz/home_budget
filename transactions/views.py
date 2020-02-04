@@ -34,6 +34,9 @@ class WalletDelete(DeleteView):
 class WalletList(ListView):
     model = Wallet
 
+    def get_queryset(self):
+        return Wallet.objects.filter(user_id=self.request.user.id)
+
 
 class WalletDetail(DetailView):
     model = Wallet
@@ -54,6 +57,9 @@ class TransactionList(ListView):
     model = Transaction
     paginate_by = 10
     ordering = ['-created']
+
+    def get_queryset(self):
+        return Transaction.objects.filter(wallet__user=self.request.user)
 
 
 class TransactionDetail(DetailView):

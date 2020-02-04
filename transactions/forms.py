@@ -5,7 +5,7 @@ from .models import Wallet
 class TransferForm(forms.Form):
 
     wallet_from = forms.ModelChoiceField(
-        queryset=Wallet.objects.filter(user__is_active=True),
+        queryset=None,
         to_field_name='name',
         label='From',
     )
@@ -16,6 +16,11 @@ class TransferForm(forms.Form):
     )
     title = forms.CharField(max_length=100)
     amount = forms.DecimalField(max_digits=10, decimal_places=2)
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request', None)
+        super().__init__(*args, **kwargs)
+        self.fields['wallet_from'].queryset = Wallet.objects.filter(user=self.request.user)
 
     def clean(self):
         super().clean()
