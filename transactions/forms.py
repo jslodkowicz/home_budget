@@ -20,7 +20,8 @@ class TransferForm(forms.Form):
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request', None)
         super().__init__(*args, **kwargs)
-        self.fields['wallet_from'].queryset = Wallet.objects.filter(user=self.request.user)
+        self.fields['wallet_from'].queryset = Wallet.objects.filter(
+                                              user=self.request.user)
 
     def clean(self):
         super().clean()
@@ -39,4 +40,5 @@ class TransactionForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request', None)
         super().__init__(*args, **kwargs)
-        self.fields['wallet'].queryset = Wallet.objects.filter(user=self.request.user)
+        self.fields['wallet'].queryset = Wallet.objects.filter(
+                                         user=self.request.user)

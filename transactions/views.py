@@ -65,7 +65,8 @@ class TransactionList(LoginRequiredMixin, ListView):
     ordering = ['-created']
 
     def get_queryset(self):
-        return Transaction.objects.filter(wallet__user__id=self.request.user.id)
+        return Transaction.objects.filter(
+                wallet__user__id=self.request.user.id)
 
 
 class TransactionDetail(LoginRequiredMixin, DetailView):
