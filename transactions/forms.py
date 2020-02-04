@@ -1,5 +1,5 @@
 from django import forms
-from .models import Wallet
+from .models import Wallet, Transaction
 
 
 class TransferForm(forms.Form):
@@ -29,3 +29,14 @@ class TransferForm(forms.Form):
             self.errors['wallet_to'] = self.error_class([
                 'Wallet From cannot be the same as Wallet To'
             ])
+
+
+class TransactionForm(forms.ModelForm):
+    class Meta:
+        model = Transaction
+        fields = ['wallet', 'category', 'title', 'amount', 'type']
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request', None)
+        super().__init__(*args, **kwargs)
+        self.fields['wallet'].queryset = Wallet.objects.filter(user=self.request.user)
