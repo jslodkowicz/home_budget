@@ -27,7 +27,7 @@
     {% else %}
         <p>No transactions yet on this wallet</p>
     {% endif %}
-    <div class="mx-5 my-5">
+    <div class="my-4">
         <button class="btn btn-danger" onclick="location.href='{% url "home_budget:wallet_delete" wallet.id %}'">Delete wallet</button>
     </div>
 {% endblock %}
