@@ -19,6 +19,6 @@
       {% endfor %}
       </tbody>
     </table>
-    <p><a href="{% url 'home_budget:wallet_create' %}">Create new wallet</a></p>
+    <button class="btn btn-primary" onclick="location.href='{% url "home_budget:wallet_create" %}'">Create new wallet</button>
 
 {% endblock %}
