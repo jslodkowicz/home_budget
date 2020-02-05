@@ -1,4 +1,5 @@
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView, DeleteView, FormView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
@@ -7,7 +8,7 @@ from django.http import HttpResponseRedirect
 
 from .models import Transaction, Wallet
 from .serializers import TransactionSerializer, WalletSerializer
-from .forms import TransferForm
+from .forms import TransferForm, TransactionForm
 
 
 class WalletViewSet(viewsets.ModelViewSet):
@@ -20,50 +21,71 @@ class TransactionViewSet(viewsets.ModelViewSet):
     serializer_class = TransactionSerializer
 
 
-class WalletCreate(CreateView):
+class WalletCreate(LoginRequiredMixin, CreateView):
     model = Wallet
-    fields = ['user', 'name', 'balance']
+    fields = ['name', 'balance']
+    success_url = reverse_lazy('home_budget:wallets')
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+
+class WalletDelete(LoginRequiredMixin, DeleteView):
+    model = Wallet
     success_url = reverse_lazy('home_budget:wallets')
 
 
-class WalletDelete(DeleteView):
-    model = Wallet
-    success_url = reverse_lazy('home_budget:wallets')
-
-
-class WalletList(ListView):
+class WalletList(LoginRequiredMixin, ListView):
     model = Wallet
 
+    def get_queryset(self):
+        return Wallet.objects.filter(user_id=self.request.user.id)
 
-class WalletDetail(DetailView):
+
+class WalletDetail(LoginRequiredMixin, DetailView):
     model = Wallet
 
 
-class TransactionCreate(CreateView):
+class TransactionCreate(LoginRequiredMixin, CreateView):
+    form_class = TransactionForm
+    success_url = reverse_lazy('home_budget:transactions')
+    template_name = 'transactions/transaction_form.html'
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'request': self.request})
+        return kwargs
+
+
+class TransactionDelete(LoginRequiredMixin, DeleteView):
     model = Transaction
-    fields = ['wallet', 'category', 'title', 'amount', 'type']
     success_url = reverse_lazy('home_budget:transactions')
 
 
-class TransactionDelete(DeleteView):
-    model = Transaction
-    success_url = reverse_lazy('home_budget:transactions')
-
-
-class TransactionList(ListView):
+class TransactionList(LoginRequiredMixin, ListView):
     model = Transaction
     paginate_by = 10
     ordering = ['-created']
 
+    def get_queryset(self):
+        return Transaction.objects.filter(
+                wallet__user__id=self.request.user.id)
 
-class TransactionDetail(DetailView):
+
+class TransactionDetail(LoginRequiredMixin, DetailView):
     model = Transaction
 
 
-class Transfer(FormView):
+class Transfer(LoginRequiredMixin, FormView):
     form_class = TransferForm
     template_name = 'transactions/transfer.html'
     success_url = 'wallets/'
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'request': self.request})
+        return kwargs
 
     def form_valid(self, form):
         cd = form.cleaned_data

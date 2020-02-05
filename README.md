@@ -1,4 +1,4 @@
-# home_budget
+# Home Budget
 [![Build Status](https://travis-ci.org/jslodkowicz/home_budget.svg?branch=master)](https://travis-ci.org/jslodkowicz/home_budget)
 
 Simple web app for managing home budget.
