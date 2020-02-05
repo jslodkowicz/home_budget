@@ -24,8 +24,12 @@ class TransactionViewSet(viewsets.ModelViewSet):
 
 class WalletCreate(LoginRequiredMixin, CreateView):
     model = Wallet
-    fields = ['user', 'name', 'balance']
+    fields = ['name', 'balance']
     success_url = reverse_lazy('home_budget:wallets')
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 
 class WalletDelete(LoginRequiredMixin, DeleteView):
