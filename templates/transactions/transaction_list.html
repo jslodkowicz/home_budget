@@ -1,17 +1,29 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Title</th>
+          <th scope="col">Category</th>
+          <th scope="col">Amount</th>
+          <th scope="col">Created</th>
+          <th scope="col">Wallet</th>
+          <th scope="col">Detail</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for transaction in object_list %}
+        <tr {% if transaction.type == 'EXPENSE' %}class="table-danger"{% else %}class="table-success"{% endif %}>
+          <td></a>{{ transaction.title|title }}</td>
+          <td>{{ transaction.category|title }}</td>
+          <td>{% if transaction.type == 'EXPENSE' %}-{{ transaction.amount }}{% else %}{{ transaction.amount }}{% endif %}</td>
+          <td>{{ transaction.created }}</td>
+          <td><a href="{% url 'home_budget:wallet_detail' transaction.wallet.id %}">{{ transaction.wallet.name }}</a></td>
+          <td><a href="{% url 'home_budget:transaction_detail' transaction.id %}">Detail</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
     <p><a href="{% url 'home_budget:transaction_create' %}">Create new transaction</a></p>
-    {% for transaction in object_list %}
-        {% if transaction.type == 'EXPENSE' %}
-            <small>{{ transaction.created }}</small>
-            <p><span class="font-weight-bold" style="color: red">{{ transaction }}</span> | <a href="{% url 'home_budget:transaction_delete' transaction.id %}">Delete</a>
-            | <a href="{% url 'home_budget:transaction_detail' transaction.id %}">Detail</a></p>
-        {% else %}
-            <small>{{ transaction.created }}</small>
-            <p><span class="font-weight-bold" style="color: green">{{ transaction }}</span> | <a href="{% url 'home_budget:transaction_delete' transaction.id %}">Delete</a>
-            | <a href="{% url 'home_budget:transaction_detail' transaction.id %}">Detail</a></p>
-        {% endif %}
-    {% endfor %}
-
 {% endblock %}

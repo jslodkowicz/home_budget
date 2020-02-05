@@ -1,21 +1,32 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h3>{{ wallet.user }}'s {{ wallet.name }} wallet</h3>
-    <h3>{{ wallet.balance }}zł</h3>
+    <h2>{{ wallet }} <a href="{% url 'home_budget:wallet_delete' wallet.id %}">Delete</a></h2>
     {% if wallet.transactions.all %}
-        {% for transaction in wallet.transactions.all %}
-            {% if transaction.type == 'EXPENSE' %}
-                <small>{{ transaction.created }}</small>
-                <p><span class="font-weight-bold" style="color: red">{{ transaction }}</span> | <a href="{% url 'home_budget:transaction_delete' transaction.id %}">Delete</a>
-                | <a href="{% url 'home_budget:transaction_detail' transaction.id %}">Detail</a></p>
-            {% else %}
-                <small>{{ transaction.created }}</small>
-                <p><span class="font-weight-bold" style="color: green">{{ transaction }}</span> | <a href="{% url 'home_budget:transaction_delete' transaction.id %}">Delete</a>
-                | <a href="{% url 'home_budget:transaction_detail' transaction.id %}">Detail</a></p>
-            {% endif %}
-        {% endfor %}
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Title</th>
+              <th scope="col">Category</th>
+              <th scope="col">Amount</th>
+              <th scope="col">Created</th>
+              <th scope="col">Detail</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for transaction in wallet.transactions.all %}
+            <tr {% if transaction.type == 'EXPENSE' %}class="table-danger"{% else %}class="table-success"{% endif %}>
+              <td></a>{{ transaction.title|title }}</td>
+              <td>{{ transaction.category|title }}</td>
+              <td>{% if transaction.type == 'EXPENSE' %}-{{ transaction.amount }}{% else %}{{ transaction.amount }}{% endif %}</td>
+              <td>{{ transaction.created }}</td>
+              <td><a href="{% url 'home_budget:transaction_detail' transaction.id %}">Detail</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
     {% else %}
         <p>No transactions yet on this wallet</p>
     {% endif %}
+
 {% endblock %}

@@ -1,10 +1,17 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <form method="post">
-        {% csrf_token %}
-        <p>Are you sure you want to delete {{ transaction.name }}?</p>
-        <input type="submit" class="btn btn-danger" value="Delete">
-        <button type="button" class="btn btn-success" onclick="history.back()">Cancel</button>
-    </form>
+    <div class="m-5 pb-5">
+        <div class="card text-center">
+          <div class="card-body">
+            <h5 class="card-title">Are you sure you want to delete {{ transaction.title }}?</h5>
+            <p class="card-text">If you delete your transaction, it will be deleted from your wallet permanently.</p>
+            <form method="post">
+                {% csrf_token %}
+                <input type="submit" class="btn btn-danger" value="Delete">
+                <button type="button" class="btn btn-success" onclick="history.back()">Cancel</button>
+            </form>
+          </div>
+        </div>
+    </div>
 {% endblock %}
