@@ -1,9 +1,24 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <p><a href="{% url 'home_budget:wallet_create' %}">Create new wallet</a></p>
-    {% for wallet in object_list %}
-        <p><span class="font-weight-bold">{{ wallet }}</span> | <a href="{% url 'home_budget:wallet_delete' wallet.id %}">Delete</a>
-        | <a href="{% url 'home_budget:wallet_detail' wallet.id %}">Detail</a></p>
-    {% endfor %}
+
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Balance</th>
+        </tr>
+      </thead>
+      {% for wallet in object_list %}
+        <tbody>
+            <tr>
+                <td><a href="{% url 'home_budget:wallet_detail' wallet.id %}">{{ wallet.name }}</a></td>
+                <td>{{ wallet.balance }}</td>
+            </tr>
+        </tbody>
+      {% endfor %}
+      </tbody>
+    </table>
+    <button class="btn btn-primary" onclick="location.href='{% url "home_budget:wallet_create" %}'">Create new wallet</button>
+
 {% endblock %}

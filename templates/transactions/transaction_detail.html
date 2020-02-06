@@ -3,13 +3,8 @@
 {% block content %}
     <h3>From {{ transaction.wallet.user }}'s {{ transaction.wallet.name }} wallet</h3>
     <h3>Current balance: {{ transaction.wallet.balance }}zł</h3>
-    {% if transaction.type == 'EXPENSE' %}
-        <small>{{ transaction.created }}</small>
-        <p><span class="font-weight-bold" style="color: red">{{ transaction }}</span> | <a href="{% url 'home_budget:transaction_delete' transaction.id %}">Delete</a>
-            | <a href="{% url 'home_budget:transaction_detail' transaction.id %}">Detail</a></p>
-    {% else %}
-        <small>{{ transaction.created }}</small>
-        <p><span class="font-weight-bold" style="color: green">{{ transaction }}</span> | <a href="{% url 'home_budget:transaction_delete' transaction.id %}">Delete</a>
-            | <a href="{% url 'home_budget:transaction_detail' transaction.id %}">Detail</a></p>
-    {% endif %}
+
+    <div class="my-4">
+        <button class="btn btn-danger" onclick="location.href='{% url "home_budget:transaction_delete" transaction.id %}'">Delete transaction</button>
+    </div>
 {% endblock %}
