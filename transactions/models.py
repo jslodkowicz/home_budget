@@ -4,6 +4,10 @@ from django.contrib.auth.models import User
 from .enums import TransactionTypes, TransactionCategories
 
 
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+
 class Wallet(models.Model):
     user = models.ForeignKey(User, related_name='wallets',
                              on_delete=models.CASCADE)
