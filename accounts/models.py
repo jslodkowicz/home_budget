@@ -5,7 +5,9 @@ from django.dispatch import receiver
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, related_name='profile', on_delete=models.CASCADE)
+    user = models.OneToOneField(User,
+                                related_name='profile',
+                                on_delete=models.CASCADE)
 
 
 @receiver(post_save, sender=User)
