@@ -27,7 +27,9 @@ class WalletCreate(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('home_budget:wallets')
 
     def form_valid(self, form):
-        form.instance.user = self.request.user
+        instance = form.save()
+        instance.profile.add(self.request.user.profile)
+        form.save()
         return super().form_valid(form)
 
 
@@ -40,7 +42,7 @@ class WalletList(LoginRequiredMixin, ListView):
     model = Wallet
 
     def get_queryset(self):
-        return Wallet.objects.filter(user_id=self.request.user.id)
+        return Wallet.objects.filter(profile__user_id=self.request.user.id)
 
 
 class WalletDetail(LoginRequiredMixin, DetailView):
@@ -57,6 +59,12 @@ class TransactionCreate(LoginRequiredMixin, CreateView):
         kwargs.update({'request': self.request})
         return kwargs
 
+    def form_valid(self, form):
+        instance = form.save()
+        instance.profile.add(self.request.user.profile)
+        form.save()
+        return super().form_valid(form)
+
 
 class TransactionDelete(LoginRequiredMixin, DeleteView):
     model = Transaction
@@ -70,7 +78,7 @@ class TransactionList(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         return Transaction.objects.filter(
-                wallet__user__id=self.request.user.id)
+                wallet__profile__user_id=self.request.user.id)
 
 
 class TransactionDetail(LoginRequiredMixin, DetailView):
