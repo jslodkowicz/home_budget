@@ -3,7 +3,7 @@ from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 from django.dispatch import receiver
 
-from transactions.models import Wallet
+from transactions.models import Wallet, Transaction
 
 
 class Profile(models.Model):
@@ -12,6 +12,8 @@ class Profile(models.Model):
                                 on_delete=models.CASCADE)
     wallet = models.ManyToManyField(Wallet,
                                     related_name='user')
+    transaction = models.ManyToManyField(Transaction,
+                                         related_name='user')
 
 
 @receiver(post_save, sender=User)

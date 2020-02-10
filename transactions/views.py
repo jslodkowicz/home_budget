@@ -59,6 +59,12 @@ class TransactionCreate(LoginRequiredMixin, CreateView):
         kwargs.update({'request': self.request})
         return kwargs
 
+    def form_valid(self, form):
+        instance = form.save()
+        instance.user.add(self.request.user.profile)
+        form.save()
+        return super().form_valid(form)
+
 
 class TransactionDelete(LoginRequiredMixin, DeleteView):
     model = Transaction

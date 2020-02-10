@@ -5,8 +5,6 @@ from .enums import TransactionTypes, TransactionCategories
 
 
 class Wallet(models.Model):
-    # user = models.ForeignKey(User, related_name='wallets',
-    #                          on_delete=models.CASCADE)
     name = models.CharField(max_length=100, unique=True)
     balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
