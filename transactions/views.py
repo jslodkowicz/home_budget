@@ -27,10 +27,9 @@ class WalletCreate(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('home_budget:wallets')
 
     def form_valid(self, form):
-        form.instance.user = self.request.user
-        name = form.cleaned_data['name']
-        balance = form.cleaned_data['balance']
-
+        instance = form.save()
+        instance.user.add(self.request.user.profile)
+        form.save()
         return super().form_valid(form)
 
 
