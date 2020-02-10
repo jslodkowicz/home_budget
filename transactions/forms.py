@@ -42,3 +42,7 @@ class TransactionForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['wallet'].queryset = Wallet.objects.filter(
                                          profile=self.request.user.profile)
+
+
+class WalletInvitationForm(forms.Form):
+    invite = forms.EmailField()

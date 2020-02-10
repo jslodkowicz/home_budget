@@ -1,4 +1,6 @@
 from django.urls import reverse_lazy
+from django.contrib.auth.models import User
+from django.core.mail import send_mail
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView, DeleteView, FormView
 from django.views.generic.list import ListView
@@ -8,7 +10,7 @@ from django.http import HttpResponseRedirect
 
 from .models import Transaction, Wallet
 from .serializers import TransactionSerializer, WalletSerializer
-from .forms import TransferForm, TransactionForm
+from .forms import TransferForm, TransactionForm, WalletInvitationForm
 
 
 class WalletViewSet(viewsets.ModelViewSet):
@@ -66,7 +68,7 @@ class WalletContributor(LoginRequiredMixin, FormView):
                 [cd['invite']],
                 fail_silently=False
             )
-            wallet.user.add(invited_user)
+            wallet.profile.add(invited_user.profile)
         except User.DoesNotExist:
             pass
 
