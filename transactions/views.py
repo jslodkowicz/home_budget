@@ -49,6 +49,30 @@ class WalletDetail(LoginRequiredMixin, DetailView):
     model = Wallet
 
 
+class WalletContributor(LoginRequiredMixin, FormView):
+    form_class = WalletInvitationForm
+    template_name = 'transactions/wallet_contributors.html'
+    success_url = reverse_lazy('home_budget:wallet_detail')
+
+    def form_valid(self, form):
+        wallet = Wallet.objects.get(id=self.kwargs["pk"])
+        cd = form.cleaned_data
+        try:
+            invited_user = User.objects.get(email=cd['invite'])
+            send_mail(
+                'Invitation to wallet',
+                f'User {self.request.user} has invited you to contribute the wallet {wallet.name}',
+                'from@example.com',
+                [cd['invite']],
+                fail_silently=False
+            )
+            wallet.user.add(invited_user)
+        except User.DoesNotExist:
+            pass
+
+        return HttpResponseRedirect('/wallets')
+
+
 class TransactionCreate(LoginRequiredMixin, CreateView):
     form_class = TransactionForm
     success_url = reverse_lazy('home_budget:transactions')
