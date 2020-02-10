@@ -28,6 +28,9 @@ class WalletCreate(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
+        name = form.cleaned_data['name']
+        balance = form.cleaned_data['balance']
+
         return super().form_valid(form)
 
 
@@ -40,7 +43,7 @@ class WalletList(LoginRequiredMixin, ListView):
     model = Wallet
 
     def get_queryset(self):
-        return Wallet.objects.filter(user_id=self.request.user.id)
+        return Wallet.objects.filter(user__user_id=self.request.user.id)
 
 
 class WalletDetail(LoginRequiredMixin, DetailView):
@@ -70,7 +73,7 @@ class TransactionList(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         return Transaction.objects.filter(
-                wallet__user__id=self.request.user.id)
+                wallet__user__user_id=self.request.user.id)
 
 
 class TransactionDetail(LoginRequiredMixin, DetailView):
