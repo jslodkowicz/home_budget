@@ -75,6 +75,10 @@ class WalletContributor(LoginRequiredMixin, FormView):
         return HttpResponseRedirect('/wallets')
 
 
+class WalletContributorDelete(LoginRequiredMixin, FormView):
+    pass
+
+
 class TransactionCreate(LoginRequiredMixin, CreateView):
     form_class = TransactionForm
     success_url = reverse_lazy('home_budget:transactions')
