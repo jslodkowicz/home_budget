@@ -11,15 +11,15 @@ class Profile(models.Model):
                                 related_name='profile',
                                 on_delete=models.CASCADE)
     wallet = models.ManyToManyField(Wallet,
-                                    related_name='user')
+                                    related_name='profile')
     transaction = models.ManyToManyField(Transaction,
-                                         related_name='user')
+                                         related_name='profile')
 
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
-        Profile.objects.create(user=instance)
+        Profile.objects.create(id=instance.id, user=instance)
 
 
 @receiver(post_save, sender=User)
