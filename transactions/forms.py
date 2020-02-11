@@ -22,6 +22,7 @@ class TransferForm(forms.Form):
         super().__init__(*args, **kwargs)
         self.fields['wallet_from'].queryset = Wallet.objects.filter(
                                               profile__user=self.request.user)
+        self.fields['wallet_to'].queryset = Wallet.objects.all().distinct()
 
     def clean(self):
         super().clean()
