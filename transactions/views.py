@@ -128,16 +128,18 @@ class Transfer(LoginRequiredMixin, FormView):
 
     def form_valid(self, form):
         cd = form.cleaned_data
-        cd['wallet_from'].transactions.create(
+        a = cd['wallet_from'].transactions.create(
             category='TRANSFER',
             title=cd['title'],
             amount=cd['amount'],
             type='EXPENSE'
         )
-        cd['wallet_to'].transactions.create(
+        b = cd['wallet_to'].transactions.create(
             category='TRANSFER',
             title=cd['title'],
             amount=cd['amount'],
             type='INCOME'
         )
+        a.profile.add(self.request.user.profile)
+        b.profile.add(self.request.user.profile)
         return HttpResponseRedirect('/wallets/')
