@@ -28,8 +28,12 @@ class WalletCreate(LoginRequiredMixin, CreateView):
     fields = ['name', 'balance']
     success_url = reverse_lazy('home_budget:wallets')
 
+    def get_initial(self):
+        self.initial.update({'profile': self.request.user})
+        return self.initial
+
     def form_valid(self, form):
-        instance = form.save()
+        instance = form
         instance.profile.add(self.request.user.profile)
         form.save()
         return super().form_valid(form)
@@ -49,6 +53,7 @@ class WalletList(LoginRequiredMixin, ListView):
 
 class WalletDetail(LoginRequiredMixin, DetailView):
     model = Wallet
+    paginate_by = 10
 
 
 class WalletContributor(LoginRequiredMixin, FormView):
@@ -73,10 +78,6 @@ class WalletContributor(LoginRequiredMixin, FormView):
             pass
 
         return HttpResponseRedirect('/wallets')
-
-
-class WalletContributorDelete(LoginRequiredMixin, FormView):
-    pass
 
 
 class TransactionCreate(LoginRequiredMixin, CreateView):

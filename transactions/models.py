@@ -22,14 +22,15 @@ class Transaction(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     def save(self, *args, **kwargs):
-        if self.type == 'EXPENSE':
-            super().save(*args, **kwargs)
-            self.wallet.balance -= self.amount
-            self.wallet.save()
-        else:
-            super().save(*args, **kwargs)
-            self.wallet.balance += self.amount
-            self.wallet.save()
+        if not self.id:
+            if self.type == 'EXPENSE':
+                super().save(*args, **kwargs)
+                self.wallet.balance -= self.amount
+                self.wallet.save()
+            else:
+                super().save(*args, **kwargs)
+                self.wallet.balance += self.amount
+                self.wallet.save()
 
     def delete(self, *args, **kwargs):
         if self.type == 'EXPENSE':

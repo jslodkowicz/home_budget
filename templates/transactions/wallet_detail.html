@@ -52,6 +52,7 @@
         <p>No transactions yet on this wallet</p>
     {% endif %}
     <div class="my-4">
+        <button class="btn btn-primary" onclick="location.href='{% url "home_budget:transaction_create" %}'">Create new transaction</button>
         <button class="btn btn-danger" onclick="location.href='{% url "home_budget:wallet_delete" wallet.id %}'">Delete wallet</button>
         <button class="btn btn-warning" onclick="location.href='{% url "home_budget:wallet_contributors" wallet.id %}'">Invite contributor</button>
     </div>
