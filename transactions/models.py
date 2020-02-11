@@ -31,7 +31,8 @@ class Transaction(models.Model):
                 super().save(*args, **kwargs)
                 self.wallet.balance += self.amount
                 self.wallet.save()
-        super().save(*args, **kwargs)
+        else:
+            super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
         if self.type == 'EXPENSE':
