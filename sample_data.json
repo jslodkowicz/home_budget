@@ -3,8 +3,8 @@
     "model": "auth.user",
     "pk": 1,
     "fields": {
-      "password": "pbkdf2_sha256$180000$vG1v1gk9Ztu1$PqS2E97X1zTSZXbIaq5ZHKK0WmOJLMSPxiK6XjpgEBw=",
-      "last_login": "2020-01-29T12:09:40.798Z",
+      "password": "pbkdf2_sha256$180000$6UtYT926S9JP$DhyTuYRAh+nrIf3lcWiBMaFEAeSKOVHAF364HHFqyUI=",
+      "last_login": null,
       "is_superuser": true,
       "username": "admin",
       "first_name": "",
@@ -12,7 +12,7 @@
       "email": "admin@example.com",
       "is_staff": true,
       "is_active": true,
-      "date_joined": "2020-01-29T12:09:12.118Z",
+      "date_joined": "2020-02-12T06:34:07.804Z",
       "groups": [],
       "user_permissions": []
     }
@@ -21,16 +21,34 @@
     "model": "auth.user",
     "pk": 2,
     "fields": {
-      "password": "pbkdf2_sha256$180000$Hcm80BPWEUtr$sh593tqfmkPJ/K94J6KdSb70/Bp6b728Ml4sq8UvlC4=",
-      "last_login": null,
+      "password": "pbkdf2_sha256$180000$NmDisFhT7db1$HcL3NUNORKM7rIuPJZG6KO/e8GKWtyZDR8M3YKGnBTA=",
+      "last_login": "2020-02-12T06:36:22.193Z",
       "is_superuser": false,
-      "username": "user",
-      "first_name": "Henry",
-      "last_name": "Test",
-      "email": "henry@test.com",
+      "username": "user_1",
+      "first_name": "Helmut",
+      "last_name": "Tester",
+      "email": "helmut@example.com",
       "is_staff": false,
       "is_active": true,
-      "date_joined": "2020-01-29T12:10:10Z",
+      "date_joined": "2020-02-12T06:35:43.215Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 3,
+    "fields": {
+      "password": "pbkdf2_sha256$180000$1W4T3DmI4h4n$7VOfTe1uby5k8RNT7E24ZZjacaUVOVC0JsQ26jjVQV0=",
+      "last_login": "2020-02-12T06:42:46.175Z",
+      "is_superuser": false,
+      "username": "user_2",
+      "first_name": "Helga",
+      "last_name": "Tester",
+      "email": "helga@example.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2020-02-12T06:36:13.031Z",
       "groups": [],
       "user_permissions": []
     }
@@ -39,18 +57,32 @@
     "model": "transactions.wallet",
     "pk": 1,
     "fields": {
-      "user": 2,
-      "name": "Default",
-      "balance": "1297.25"
+      "name": "Bie\u017a\u0105cy",
+      "balance": "3605.00"
     }
   },
   {
     "model": "transactions.wallet",
     "pk": 2,
     "fields": {
-      "user": 2,
-      "name": "Savings",
-      "balance": "15000.00"
+      "name": "Oszcz\u0119dno\u015bci",
+      "balance": "69000.00"
+    }
+  },
+  {
+    "model": "transactions.wallet",
+    "pk": 3,
+    "fields": {
+      "name": "Na wakacje",
+      "balance": "1550.00"
+    }
+  },
+  {
+    "model": "transactions.wallet",
+    "pk": 4,
+    "fields": {
+      "name": "Codzienny",
+      "balance": "2815.00"
     }
   },
   {
@@ -58,11 +90,11 @@
     "pk": 1,
     "fields": {
       "wallet": 1,
-      "category": "INCOME",
-      "title": "Wyplata",
-      "amount": "2000.00",
-      "type": "INCOME",
-      "created": "2020-01-29T12:12:00.554Z"
+      "category": "BILLS",
+      "title": "pr\u0105d",
+      "amount": "120.00",
+      "type": "EXPENSE",
+      "created": "2020-02-12T06:40:53.854Z"
     }
   },
   {
@@ -70,11 +102,11 @@
     "pk": 2,
     "fields": {
       "wallet": 1,
-      "category": "FOOD",
-      "title": "zakupy",
-      "amount": "350.43",
+      "category": "CAR",
+      "title": "paliwo",
+      "amount": "250.00",
       "type": "EXPENSE",
-      "created": "2020-01-29T12:12:21.925Z"
+      "created": "2020-02-12T06:41:06.725Z"
     }
   },
   {
@@ -82,11 +114,11 @@
     "pk": 3,
     "fields": {
       "wallet": 1,
-      "category": "BILLS",
-      "title": "rachunki",
-      "amount": "422.32",
+      "category": "TRANSPORT",
+      "title": "migawka",
+      "amount": "225.00",
       "type": "EXPENSE",
-      "created": "2020-01-29T12:12:44.224Z"
+      "created": "2020-02-12T06:41:20.178Z"
     }
   },
   {
@@ -94,11 +126,142 @@
     "pk": 4,
     "fields": {
       "wallet": 1,
-      "category": "TRANSPORT",
-      "title": "migawka",
-      "amount": "230.00",
+      "category": "INCOME",
+      "title": "od miko\u0142aja",
+      "amount": "300.00",
+      "type": "INCOME",
+      "created": "2020-02-12T06:41:38.378Z"
+    }
+  },
+  {
+    "model": "transactions.transaction",
+    "pk": 5,
+    "fields": {
+      "wallet": 1,
+      "category": "TRANSFER",
+      "title": "skarbonka",
+      "amount": "1000.00",
       "type": "EXPENSE",
-      "created": "2020-01-29T12:13:11.663Z"
+      "created": "2020-02-12T06:42:16.771Z"
+    }
+  },
+  {
+    "model": "transactions.transaction",
+    "pk": 6,
+    "fields": {
+      "wallet": 2,
+      "category": "TRANSFER",
+      "title": "skarbonka",
+      "amount": "1000.00",
+      "type": "INCOME",
+      "created": "2020-02-12T06:42:16.781Z"
+    }
+  },
+  {
+    "model": "transactions.transaction",
+    "pk": 7,
+    "fields": {
+      "wallet": 1,
+      "category": "TRANSFER",
+      "title": "wakacje",
+      "amount": "100.00",
+      "type": "EXPENSE",
+      "created": "2020-02-12T06:42:34.700Z"
+    }
+  },
+  {
+    "model": "transactions.transaction",
+    "pk": 8,
+    "fields": {
+      "wallet": 3,
+      "category": "TRANSFER",
+      "title": "wakacje",
+      "amount": "100.00",
+      "type": "INCOME",
+      "created": "2020-02-12T06:42:34.709Z"
+    }
+  },
+  {
+    "model": "transactions.transaction",
+    "pk": 9,
+    "fields": {
+      "wallet": 4,
+      "category": "TRANSFER",
+      "title": "wakacje",
+      "amount": "150.00",
+      "type": "EXPENSE",
+      "created": "2020-02-12T06:43:34.447Z"
+    }
+  },
+  {
+    "model": "transactions.transaction",
+    "pk": 10,
+    "fields": {
+      "wallet": 3,
+      "category": "TRANSFER",
+      "title": "wakacje",
+      "amount": "150.00",
+      "type": "INCOME",
+      "created": "2020-02-12T06:43:34.460Z"
+    }
+  },
+  {
+    "model": "transactions.transaction",
+    "pk": 11,
+    "fields": {
+      "wallet": 4,
+      "category": "FOOD",
+      "title": "pizza",
+      "amount": "35.00",
+      "type": "EXPENSE",
+      "created": "2020-02-12T06:43:53.610Z"
+    }
+  },
+  {
+    "model": "accounts.profile",
+    "pk": 1,
+    "fields": {
+      "user": 1,
+      "wallet": [],
+      "transaction": []
+    }
+  },
+  {
+    "model": "accounts.profile",
+    "pk": 2,
+    "fields": {
+      "user": 2,
+      "wallet": [
+        1,
+        2,
+        3
+      ],
+      "transaction": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ]
+    }
+  },
+  {
+    "model": "accounts.profile",
+    "pk": 3,
+    "fields": {
+      "user": 3,
+      "wallet": [
+        3,
+        4
+      ],
+      "transaction": [
+        9,
+        10,
+        11
+      ]
     }
   }
 ]

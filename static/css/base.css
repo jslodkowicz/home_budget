@@ -1,0 +1,16 @@
+.navbar {
+    color: #FFFFFF !important;
+    background-color: #4e6ccc !important;
+}
+
+.custom-colour {
+    background-color: #f1f1ee !important;
+}
+
+.btn-primary, .btn-primary:active, .btn-primary:visited {
+    background-color: #4e6ccc;
+}
+
+.btn-primary:hover {
+    background-color: #2758cc;
+}

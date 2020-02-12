@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load app_filters %}
 
 {% block content %}
 
@@ -7,6 +8,7 @@
         <tr>
           <th scope="col">Name</th>
           <th scope="col">Balance</th>
+          <th scope="col">Users</th>
         </tr>
       </thead>
       {% for wallet in object_list %}
@@ -14,6 +16,7 @@
             <tr>
                 <td><a href="{% url 'home_budget:wallet_detail' wallet.id %}">{{ wallet.name }}</a></td>
                 <td>{{ wallet.balance }}</td>
+                <td>{{ wallet.profile.all|transaction_user }}</td>
             </tr>
         </tbody>
       {% endfor %}

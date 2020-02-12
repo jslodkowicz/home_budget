@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load app_filters %}
 
 {% block content %}
     <table class="table table-hover">
@@ -10,6 +11,7 @@
           <th scope="col">Created</th>
           <th scope="col">Wallet</th>
           <th scope="col">Detail</th>
+          <th scope="col">User</th>
         </tr>
       </thead>
       <tbody>
@@ -18,9 +20,10 @@
           <td></a>{{ transaction.title|title }}</td>
           <td>{{ transaction.category|title }}</td>
           <td>{% if transaction.type == 'EXPENSE' %}-{{ transaction.amount }}{% else %}{{ transaction.amount }}{% endif %}</td>
-          <td>{{ transaction.created }}</td>
+          <td>{{ transaction.created|date:'d.m Y' }}</td>
           <td><a href="{% url 'home_budget:wallet_detail' transaction.wallet.id %}">{{ transaction.wallet.name }}</a></td>
           <td><a href="{% url 'home_budget:transaction_detail' transaction.id %}">Detail</td>
+          <td>{{ transaction.profile.all|transaction_user }}</td>
         </tr>
         {% endfor %}
       </tbody>

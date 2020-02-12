@@ -1,6 +1,29 @@
 {% extends 'base.html' %}
+{% load app_filters %}
 
 {% block content %}
+        <table class="table table-hover table-sm">
+          <thead>
+            <tr>
+              <th scope="col">User</th>
+              <th scope="col">Email</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+    {% for profile in wallet.profile.all %}
+          <tbody>
+            <tr>
+              <td>{{ profile.user.username }}</td>
+              <td>{{ profile.user.email }}</td>
+              {% if profile.id == request.user.id %}
+                  <td><button class="btn btn-secondary btn-sm" onclick="#">Delete</button></td>
+              {% else %}
+                  <td><button class="btn btn-danger btn-sm" onclick="#">Delete</button></td>
+              {% endif %}
+            </tr>
+          </tbody>
+    {% endfor %}
+        </table>
     {% if wallet.transactions.all %}
         <table class="table table-hover">
           <thead>
@@ -10,6 +33,7 @@
               <th scope="col">Amount</th>
               <th scope="col">Created</th>
               <th scope="col">Detail</th>
+              <th scope="col">User</th>
             </tr>
           </thead>
           <tbody>
@@ -20,6 +44,7 @@
               <td>{% if transaction.type == 'EXPENSE' %}-{{ transaction.amount }}{% else %}{{ transaction.amount }}{% endif %}</td>
               <td>{{ transaction.created }}</td>
               <td><a href="{% url 'home_budget:transaction_detail' transaction.id %}">Detail</td>
+              <td>{{ transaction.profile.all|transaction_user }}</td>
             </tr>
             {% endfor %}
           </tbody>
@@ -28,6 +53,8 @@
         <p>No transactions yet on this wallet</p>
     {% endif %}
     <div class="my-4">
+        <button class="btn btn-primary" onclick="location.href='{% url "home_budget:transaction_create" %}'">Create new transaction</button>
         <button class="btn btn-danger" onclick="location.href='{% url "home_budget:wallet_delete" wallet.id %}'">Delete wallet</button>
+        <button class="btn btn-warning" onclick="location.href='{% url "home_budget:wallet_contributors" wallet.id %}'">Invite contributor</button>
     </div>
 {% endblock %}

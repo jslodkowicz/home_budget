@@ -2,4 +2,17 @@
 
 {% block content %}
     <h1>{{ profile.user.username }}</h1>
+    <div class="row">
+    {% for wallet in profile.wallet.all %}
+        <div class="col">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">{{ wallet.name }}</h5>
+                    <p class="card-text">{{ wallet.balance }} zł</p>
+                    <button type="button" class="btn btn-primary" onclick="location.href='{% url "home_budget:wallet_detail" wallet.id %}'">Details</button>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
 {% endblock %}

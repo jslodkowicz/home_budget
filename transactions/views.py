@@ -1,4 +1,6 @@
 from django.urls import reverse_lazy
+from django.contrib.auth.models import User
+from django.core.mail import send_mail
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView, DeleteView, FormView
 from django.views.generic.list import ListView
@@ -8,7 +10,7 @@ from django.http import HttpResponseRedirect
 
 from .models import Transaction, Wallet
 from .serializers import TransactionSerializer, WalletSerializer
-from .forms import TransferForm, TransactionForm
+from .forms import TransferForm, TransactionForm, WalletInvitationForm
 
 
 class WalletViewSet(viewsets.ModelViewSet):
@@ -25,6 +27,10 @@ class WalletCreate(LoginRequiredMixin, CreateView):
     model = Wallet
     fields = ['name', 'balance']
     success_url = reverse_lazy('home_budget:wallets')
+
+    def get_initial(self):
+        self.initial.update({'profile': self.request.user})
+        return self.initial
 
     def form_valid(self, form):
         instance = form.save()
@@ -47,6 +53,31 @@ class WalletList(LoginRequiredMixin, ListView):
 
 class WalletDetail(LoginRequiredMixin, DetailView):
     model = Wallet
+    paginate_by = 10
+
+
+class WalletContributor(LoginRequiredMixin, FormView):
+    form_class = WalletInvitationForm
+    template_name = 'transactions/wallet_contributors.html'
+    success_url = reverse_lazy('home_budget:wallet_detail')
+
+    def form_valid(self, form):
+        wallet = Wallet.objects.get(id=self.kwargs["pk"])
+        cd = form.cleaned_data
+        try:
+            invited_user = User.objects.get(email=cd['invite'])
+            send_mail(
+                'Invitation to wallet',
+                f'User {self.request.user} has invited you to contribute the wallet {wallet.name}',
+                'from@example.com',
+                [cd['invite']],
+                fail_silently=False
+            )
+            wallet.profile.add(invited_user.profile)
+        except User.DoesNotExist:
+            pass
+
+        return HttpResponseRedirect('/wallets')
 
 
 class TransactionCreate(LoginRequiredMixin, CreateView):
@@ -97,16 +128,18 @@ class Transfer(LoginRequiredMixin, FormView):
 
     def form_valid(self, form):
         cd = form.cleaned_data
-        cd['wallet_from'].transactions.create(
+        a = cd['wallet_from'].transactions.create(
             category='TRANSFER',
             title=cd['title'],
             amount=cd['amount'],
             type='EXPENSE'
         )
-        cd['wallet_to'].transactions.create(
+        b = cd['wallet_to'].transactions.create(
             category='TRANSFER',
             title=cd['title'],
             amount=cd['amount'],
             type='INCOME'
         )
+        a.profile.add(self.request.user.profile)
+        b.profile.add(self.request.user.profile)
         return HttpResponseRedirect('/wallets/')
