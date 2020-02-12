@@ -33,7 +33,7 @@ class WalletCreate(LoginRequiredMixin, CreateView):
         return self.initial
 
     def form_valid(self, form):
-        instance = form
+        instance = form.save()
         instance.profile.add(self.request.user.profile)
         form.save()
         return super().form_valid(form)
