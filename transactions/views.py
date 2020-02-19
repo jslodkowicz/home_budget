@@ -21,7 +21,7 @@ class WalletAPIView(APIView):
     permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request, *args, **kwargs):
-        wallets = Wallet.objects.filter(profile__user=self.request.user)
+        wallets = Wallet.objects.filter(profile__user_id=self.request.user.id)
         serializer = WalletSerializer(wallets, many=True)
         return Response(serializer.data)
 
@@ -32,7 +32,7 @@ class TransactionAPIView(APIView):
     permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request, *args, **kwargs):
-        transactions = Transaction.objects.filter(profile__user=self.request.user)
+        transactions = Transaction.objects.filter(profile__user_id=self.request.user.id)
         serializer = TransactionSerializer(transactions, many=True)
         return Response(serializer.data)
 
