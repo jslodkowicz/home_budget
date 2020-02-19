@@ -5,7 +5,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView, DeleteView, FormView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from rest_framework import viewsets
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import permissions
 from django.http import HttpResponseRedirect
 
 from .models import Transaction, Wallet
@@ -13,14 +15,26 @@ from .serializers import TransactionSerializer, WalletSerializer
 from .forms import TransferForm, TransactionForm, WalletInvitationForm
 
 
-class WalletViewSet(viewsets.ModelViewSet):
-    queryset = Wallet.objects.all()
-    serializer_class = WalletSerializer
+class WalletViewSet(APIView):
+    """Get wallet details"""
+
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get(self, request, *args, **kwargs):
+        wallets = Wallet.objects.filter(profile__user=self.request.user)
+        serializer = WalletSerializer(wallets, many=True)
+        return Response(serializer.data)
 
 
-class TransactionViewSet(viewsets.ModelViewSet):
-    queryset = Transaction.objects.all()
-    serializer_class = TransactionSerializer
+class TransactionViewSet(APIView):
+    """Get transaction details"""
+
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get(self, request, *args, **kwargs):
+        transactions = Transaction.objects.filter(profile__user=self.request.user)
+        serializer = TransactionSerializer(transactions, many=True)
+        return Response(serializer.data)
 
 
 class WalletCreate(LoginRequiredMixin, CreateView):

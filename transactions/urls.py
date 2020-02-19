@@ -1,17 +1,16 @@
-from django.urls import path, include
+from django.urls import path
 from rest_framework.routers import DefaultRouter
 
 from . import views
 
 
 router = DefaultRouter()
-router.register('transaction', views.TransactionViewSet)
-router.register('wallet', views.WalletViewSet)
 
 app_name = 'home_budget'
 
 urlpatterns = [
-    path('api/', include(router.urls)),
+    path('api/transactions/', views.TransactionViewSet.as_view(), name='transaction-list'),
+    path('api/wallets/', views.WalletViewSet.as_view(), name='wallet-list'),
     path('wallets/', views.WalletList.as_view(), name='wallets'),
     path('wallets/<pk>/', views.WalletDetail.as_view(), name='wallet_detail'),
     path('wallet/create/', views.WalletCreate.as_view(), name='wallet_create'),
