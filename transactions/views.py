@@ -15,7 +15,7 @@ from .serializers import TransactionSerializer, WalletSerializer
 from .forms import TransferForm, TransactionForm, WalletInvitationForm
 
 
-class WalletViewSet(APIView):
+class WalletAPIView(APIView):
     """Get wallet details"""
 
     permission_classes = (permissions.IsAuthenticated,)
@@ -26,7 +26,7 @@ class WalletViewSet(APIView):
         return Response(serializer.data)
 
 
-class TransactionViewSet(APIView):
+class TransactionAPIView(APIView):
     """Get transaction details"""
 
     permission_classes = (permissions.IsAuthenticated,)

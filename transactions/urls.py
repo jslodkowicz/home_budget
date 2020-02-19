@@ -9,8 +9,8 @@ router = DefaultRouter()
 app_name = 'home_budget'
 
 urlpatterns = [
-    path('api/transactions/', views.TransactionViewSet.as_view(), name='transaction-list'),
-    path('api/wallets/', views.WalletViewSet.as_view(), name='wallet-list'),
+    path('api/transactions/', views.TransactionAPIView.as_view(), name='transaction-list'),
+    path('api/wallets/', views.WalletAPIView.as_view(), name='wallet-list'),
     path('wallets/', views.WalletList.as_view(), name='wallets'),
     path('wallets/<pk>/', views.WalletDetail.as_view(), name='wallet_detail'),
     path('wallet/create/', views.WalletCreate.as_view(), name='wallet_create'),
