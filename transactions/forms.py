@@ -36,7 +36,7 @@ class TransferForm(forms.Form):
 class TransactionForm(forms.ModelForm):
     class Meta:
         model = Transaction
-        fields = ['wallet', 'category', 'title', 'amount', 'type']
+        fields = ['wallet', 'category', 'title', 'amount', 'type', 'invoice']
 
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request', None)
