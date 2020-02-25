@@ -1,14 +1,11 @@
 from django.urls import reverse_lazy
-from django.shortcuts import redirect
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView, DeleteView, FormView, UpdateView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import permissions
+from rest_framework.generics import RetrieveUpdateDestroyAPIView, ListCreateAPIView
 from django.http import HttpResponseRedirect
 
 from .models import Transaction, Wallet
@@ -16,26 +13,28 @@ from .serializers import TransactionSerializer, WalletSerializer
 from .forms import TransferForm, TransactionForm, WalletInvitationForm
 
 
-class WalletAPIView(APIView):
-    """Get wallet details"""
-
-    permission_classes = (permissions.IsAuthenticated,)
-
-    def get(self, request, *args, **kwargs):
-        wallets = Wallet.objects.filter(profile__user_id=self.request.user.id)
-        serializer = WalletSerializer(wallets, many=True)
-        return Response(serializer.data)
+class WalletListAPI(ListCreateAPIView):
+    """List all wallets or create a new wallet"""
+    queryset = Wallet.objects.all()
+    serializer_class = WalletSerializer
 
 
-class TransactionAPIView(APIView):
-    """Get transaction details"""
+class WalletDetailAPI(RetrieveUpdateDestroyAPIView):
+    """Wallet detail, allows to retrieve, update, delete an object"""
+    queryset = Wallet.objects.all()
+    serializer_class = WalletSerializer
 
-    permission_classes = (permissions.IsAuthenticated,)
 
-    def get(self, request, *args, **kwargs):
-        transactions = Transaction.objects.filter(profile__user_id=self.request.user.id)
-        serializer = TransactionSerializer(transactions, many=True)
-        return Response(serializer.data)
+class TransactionListAPI(ListCreateAPIView):
+    """List all transactions or create new transaction"""
+    queryset = Transaction.objects.all()
+    serializer_class = TransactionSerializer
+
+
+class TransactionDetailAPI(RetrieveUpdateDestroyAPIView):
+    """Transaction detail, allows to retrieve, update, delete an object"""
+    queryset = Transaction.objects.all()
+    serializer_class = TransactionSerializer
 
 
 class WalletCreate(LoginRequiredMixin, CreateView):

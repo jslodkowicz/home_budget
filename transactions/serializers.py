@@ -8,6 +8,7 @@ class TransactionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Transaction
         fields = (
+            'id',
             'wallet',
             'category',
             'title',
@@ -22,7 +23,7 @@ class WalletSerializer(serializers.ModelSerializer):
     class Meta:
         model = Wallet
         fields = (
-            'user',
+            'id',
             'name',
             'balance'
         )
