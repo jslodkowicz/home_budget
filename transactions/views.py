@@ -1,8 +1,9 @@
 from django.urls import reverse_lazy
+from django.shortcuts import redirect
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic.edit import CreateView, DeleteView, FormView
+from django.views.generic.edit import CreateView, DeleteView, FormView, UpdateView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from rest_framework.views import APIView
@@ -126,8 +127,22 @@ class TransactionList(LoginRequiredMixin, ListView):
                 wallet__profile__user_id=self.request.user.id)
 
 
-class TransactionDetail(LoginRequiredMixin, DetailView):
+class TransactionDetail(LoginRequiredMixin, UpdateView):
     model = Transaction
+    fields = ('invoice',)
+    template_name = 'transactions/transaction_detail.html'
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('home_budget:transaction_detail', kwargs={'pk': self.object.pk})
+
+
+class TransactionInvoice(LoginRequiredMixin, DetailView):
+    model = Transaction
+    template_name = 'transactions/invoice.html'
 
 
 class Transfer(LoginRequiredMixin, FormView):

@@ -28,6 +28,8 @@ urlpatterns = [
          name='transaction_create'),
     path('transaction/<pk>/delete/', views.TransactionDelete.as_view(),
          name='transaction_delete'),
+    path('transaction/<pk>/invoice', views.TransactionInvoice.as_view(),
+         name='transaction_invoice'),
     path('transfer/', views.Transfer.as_view(), name='transfer'),
 ]
 

@@ -20,7 +20,7 @@ class Transaction(models.Model):
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     type = models.CharField(max_length=50, choices=TransactionTypes.choices())
     created = models.DateTimeField(auto_now_add=True)
-    invoice = models.ImageField(upload_to='invoices/', default='invoices/invoice-icon.jpg')
+    invoice = models.ImageField(upload_to='invoices/', blank=True)
 
     def save(self, *args, **kwargs):
         if not self.id:
