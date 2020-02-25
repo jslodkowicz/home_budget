@@ -4,6 +4,7 @@ from .models import Transaction, Wallet
 
 
 class TransactionSerializer(serializers.ModelSerializer):
+    """Serialize transactions"""
 
     class Meta:
         model = Transaction
@@ -19,6 +20,7 @@ class TransactionSerializer(serializers.ModelSerializer):
 
 
 class WalletSerializer(serializers.ModelSerializer):
+    """Serialize wallets"""
 
     class Meta:
         model = Wallet

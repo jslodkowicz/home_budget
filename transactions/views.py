@@ -6,6 +6,7 @@ from django.views.generic.edit import CreateView, DeleteView, FormView, UpdateVi
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from rest_framework.generics import RetrieveUpdateDestroyAPIView, ListCreateAPIView
+from rest_framework.permissions import IsAuthenticated
 from django.http import HttpResponseRedirect
 
 from .models import Transaction, Wallet
@@ -15,26 +16,42 @@ from .forms import TransferForm, TransactionForm, WalletInvitationForm
 
 class WalletListAPI(ListCreateAPIView):
     """List all wallets or create a new wallet"""
-    queryset = Wallet.objects.all()
+
     serializer_class = WalletSerializer
+
+    def get_queryset(self):
+        queryset = Wallet.objects.filter(profile__user=self.request.user)
+        return queryset
 
 
 class WalletDetailAPI(RetrieveUpdateDestroyAPIView):
     """Wallet detail, allows to retrieve, update, delete an object"""
-    queryset = Wallet.objects.all()
+
     serializer_class = WalletSerializer
+
+    def get_queryset(self):
+        queryset = Transaction.objects.filter(profile__user=self.request.user)
+        return queryset
 
 
 class TransactionListAPI(ListCreateAPIView):
     """List all transactions or create new transaction"""
-    queryset = Transaction.objects.all()
+
     serializer_class = TransactionSerializer
+
+    def get_queryset(self):
+        queryset = Transaction.objects.filter(profile__user=self.request.user)
+        return queryset
 
 
 class TransactionDetailAPI(RetrieveUpdateDestroyAPIView):
     """Transaction detail, allows to retrieve, update, delete an object"""
-    queryset = Transaction.objects.all()
+
     serializer_class = TransactionSerializer
+
+    def get_queryset(self):
+        queryset = Transaction.objects.filter(profile__user=self.request.user)
+        return queryset
 
 
 class WalletCreate(LoginRequiredMixin, CreateView):
