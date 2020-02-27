@@ -1,6 +1,7 @@
 from django.views.generic import CreateView, DetailView
 from django.urls import reverse_lazy
 from rest_framework.generics import RetrieveUpdateDestroyAPIView, ListCreateAPIView
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
 from .models import Profile
 from .forms import SignUpForm
@@ -12,6 +13,7 @@ class ProfileListAPI(ListCreateAPIView):
 
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
+    permission_classes = (IsAuthenticated, IsAdminUser)
 
 
 class ProfileDetailAPI(RetrieveUpdateDestroyAPIView):
@@ -19,6 +21,7 @@ class ProfileDetailAPI(RetrieveUpdateDestroyAPIView):
 
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
+    permission_classes = (IsAuthenticated, IsAdminUser)
 
 
 class SignUpView(CreateView):

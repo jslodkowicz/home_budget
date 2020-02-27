@@ -18,6 +18,7 @@ class WalletListAPI(ListCreateAPIView):
     """List all wallets or create a new wallet"""
 
     serializer_class = WalletSerializer
+    permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
         queryset = Wallet.objects.filter(profile__user=self.request.user)
@@ -28,6 +29,7 @@ class WalletDetailAPI(RetrieveUpdateDestroyAPIView):
     """Wallet detail, allows to retrieve, update, delete an object"""
 
     serializer_class = WalletSerializer
+    permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
         queryset = Transaction.objects.filter(profile__user=self.request.user)
@@ -38,6 +40,7 @@ class TransactionListAPI(ListCreateAPIView):
     """List all transactions or create new transaction"""
 
     serializer_class = TransactionSerializer
+    permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
         queryset = Transaction.objects.filter(profile__user=self.request.user)
@@ -48,6 +51,7 @@ class TransactionDetailAPI(RetrieveUpdateDestroyAPIView):
     """Transaction detail, allows to retrieve, update, delete an object"""
 
     serializer_class = TransactionSerializer
+    permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
         queryset = Transaction.objects.filter(profile__user=self.request.user)
