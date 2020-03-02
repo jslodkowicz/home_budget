@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from rest_framework.generics import RetrieveUpdateDestroyAPIView, ListCreateAPIView
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
-from .models import Profile
+from .models import UserProfile
 from .forms import SignUpForm
 from .serializers import ProfileSerializer
 
@@ -11,7 +11,7 @@ from .serializers import ProfileSerializer
 class ProfileListAPI(ListCreateAPIView):
     """List all users or create a new user"""
 
-    queryset = Profile.objects.all()
+    queryset = UserProfile.objects.all()
     serializer_class = ProfileSerializer
     permission_classes = (IsAuthenticated, IsAdminUser)
 
@@ -19,7 +19,7 @@ class ProfileListAPI(ListCreateAPIView):
 class ProfileDetailAPI(RetrieveUpdateDestroyAPIView):
     """User detail, allows to retrieve, update, delete an object"""
 
-    queryset = Profile.objects.all()
+    queryset = UserProfile.objects.all()
     serializer_class = ProfileSerializer
     permission_classes = (IsAuthenticated, IsAdminUser)
 
@@ -31,5 +31,5 @@ class SignUpView(CreateView):
 
 
 class ProfileView(DetailView):
-    model = Profile
+    model = UserProfile
     template_name = 'accounts/profile.html'

@@ -21,7 +21,7 @@ class WalletListAPI(ListCreateAPIView):
     permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
-        queryset = Wallet.objects.filter(profile__user=self.request.user)
+        queryset = Wallet.objects.filter(user=self.request.user)
         return queryset
 
 
@@ -32,7 +32,7 @@ class WalletDetailAPI(RetrieveUpdateDestroyAPIView):
     permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
-        queryset = Transaction.objects.filter(profile__user=self.request.user)
+        queryset = Transaction.objects.filter(user=self.request.user)
         return queryset
 
 
@@ -43,7 +43,7 @@ class TransactionListAPI(ListCreateAPIView):
     permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
-        queryset = Transaction.objects.filter(profile__user=self.request.user)
+        queryset = Transaction.objects.filter(user=self.request.user)
         return queryset
 
 
@@ -54,7 +54,7 @@ class TransactionDetailAPI(RetrieveUpdateDestroyAPIView):
     permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
-        queryset = Transaction.objects.filter(profile__user=self.request.user)
+        queryset = Transaction.objects.filter(user=self.request.user)
         return queryset
 
 
@@ -83,7 +83,7 @@ class WalletList(LoginRequiredMixin, ListView):
     model = Wallet
 
     def get_queryset(self):
-        return Wallet.objects.filter(profile__user_id=self.request.user.id)
+        return Wallet.objects.filter(user_id=self.request.user.id)
 
 
 class WalletDetail(LoginRequiredMixin, DetailView):
@@ -144,7 +144,7 @@ class TransactionList(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         return Transaction.objects.filter(
-                wallet__profile__user_id=self.request.user.id)
+                wallet__user_id=self.request.user.id)
 
 
 class TransactionDetail(LoginRequiredMixin, UpdateView):

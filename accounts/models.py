@@ -1,27 +1,66 @@
 from django.db import models
-from django.db.models.signals import post_save
-from django.contrib.auth.models import User
-from django.dispatch import receiver
+from django.contrib.auth.models import AbstractBaseUser,\
+                                       PermissionsMixin,\
+                                       BaseUserManager
 
 from transactions.models import Wallet, Transaction
 
 
-class Profile(models.Model):
-    user = models.OneToOneField(User,
-                                related_name='profile',
-                                on_delete=models.CASCADE)
+class UserProfileManager(BaseUserManager):
+    """Helps Django work with our custom user model"""
+
+    def create_user(self, email, first_name, last_name, password):
+        """Create a new user profile object"""
+
+        if not email:
+            raise ValueError('Users must have an email address.')
+        email = self.normalize_email(email)
+        user = self.model(email=email,
+                          first_name=first_name,
+                          last_name=last_name)
+
+        user.set_password(password)
+        user.save(using=self.db)
+        return user
+
+    def create_superuser(self, email, first_name, last_name, password):
+        """Creates and saves a new superuser with given details"""
+
+        user = self.create_user(email, first_name, last_name, password)
+        user.is_superuser = True
+        user.is_staff = True
+        user.save(using=self.db)
+        return user
+
+
+class UserProfile(AbstractBaseUser, PermissionsMixin):
+    """Represent a user profile"""
+
+    email = models.EmailField(max_length=255, unique=True)
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+
+    objects = UserProfileManager()
+
     wallet = models.ManyToManyField(Wallet,
-                                    related_name='profile')
+                                    related_name='user')
     transaction = models.ManyToManyField(Transaction,
-                                         related_name='profile')
+                                         related_name='user')
 
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['first_name', 'last_name']
 
-@receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        Profile.objects.create(id=instance.id, user=instance)
+    def get_full_name(self):
+        """Used to get a users full name"""
+        return f'{self.first_name} {self.last_name}'
 
+    def get_short_name(self):
+        """Used to get a users short name"""
+        return self.first_name
 
-@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-    instance.profile.save()
+    def __str__(self):
+        """Django uses this when it needs to
+        convert the object to a string"""
+        return self.email
