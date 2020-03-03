@@ -42,7 +42,7 @@ class TransactionForm(forms.ModelForm):
         self.request = kwargs.pop('request', None)
         super().__init__(*args, **kwargs)
         self.fields['wallet'].queryset = Wallet.objects.filter(
-                                         user=self.request.user.profile)
+                                         user=self.request.user)
 
 
 class WalletInvitationForm(forms.Form):

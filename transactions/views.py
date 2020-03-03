@@ -64,12 +64,12 @@ class WalletCreate(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('home_budget:wallets')
 
     def get_initial(self):
-        self.initial.update({'profile': self.request.user})
+        self.initial.update({'user': self.request.user})
         return self.initial
 
     def form_valid(self, form):
         instance = form.save()
-        instance.profile.add(self.request.user.profile)
+        instance.user.add(self.request.user)
         form.save()
         return super().form_valid(form)
 
@@ -83,7 +83,7 @@ class WalletList(LoginRequiredMixin, ListView):
     model = Wallet
 
     def get_queryset(self):
-        return Wallet.objects.filter(user_id=self.request.user.id)
+        return Wallet.objects.filter(user__id=self.request.user.id)
 
 
 class WalletDetail(LoginRequiredMixin, DetailView):
@@ -108,7 +108,7 @@ class WalletContributor(LoginRequiredMixin, FormView):
                 [cd['invite']],
                 fail_silently=False
             )
-            wallet.profile.add(invited_user.profile)
+            wallet.user.add(invited_user)
         except User.DoesNotExist:
             pass
 
@@ -127,7 +127,7 @@ class TransactionCreate(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         instance = form.save()
-        instance.profile.add(self.request.user.profile)
+        instance.user.add(self.request.user)
         form.save()
         return super().form_valid(form)
 
@@ -144,7 +144,7 @@ class TransactionList(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         return Transaction.objects.filter(
-                wallet__user_id=self.request.user.id)
+                wallet__user__id=self.request.user.id)
 
 
 class TransactionDetail(LoginRequiredMixin, UpdateView):
@@ -189,6 +189,6 @@ class Transfer(LoginRequiredMixin, FormView):
             amount=cd['amount'],
             type='INCOME'
         )
-        a.profile.add(self.request.user.profile)
-        b.profile.add(self.request.user.profile)
+        a.user.add(self.request.user)
+        b.user.add(self.request.user)
         return HttpResponseRedirect('/wallets/')

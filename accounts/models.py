@@ -32,6 +32,10 @@ class UserProfileManager(BaseUserManager):
         user.save(using=self.db)
         return user
 
+    def get_by_natural_key(self, email_):
+        print(email_)
+        return self.get(email=email_)
+
 
 class UserProfile(AbstractBaseUser, PermissionsMixin):
     """Represent a user profile"""
@@ -59,6 +63,10 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     def get_short_name(self):
         """Used to get a users short name"""
         return self.first_name
+
+    def natural_key(self):
+        """Used to get a users natural key"""
+        return self.email
 
     def __str__(self):
         """Django uses this when it needs to
