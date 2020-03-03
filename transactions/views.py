@@ -2,10 +2,12 @@ from django.urls import reverse_lazy
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic.edit import CreateView, DeleteView, FormView, UpdateView
+from django.views.generic.edit import CreateView, DeleteView,\
+                                      FormView, UpdateView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from rest_framework.generics import RetrieveUpdateDestroyAPIView, ListCreateAPIView
+from rest_framework.generics import RetrieveUpdateDestroyAPIView,\
+                                    ListCreateAPIView
 from rest_framework.permissions import IsAuthenticated
 from django.http import HttpResponseRedirect
 
@@ -103,7 +105,8 @@ class WalletContributor(LoginRequiredMixin, FormView):
             invited_user = User.objects.get(email=cd['invite'])
             send_mail(
                 'Invitation to wallet',
-                f'User {self.request.user} has invited you to contribute the wallet {wallet.name}',
+                f'User {self.request.user} has invited you \
+                to contribute the wallet {wallet.name}',
                 'from@example.com',
                 [cd['invite']],
                 fail_silently=False
@@ -157,7 +160,8 @@ class TransactionDetail(LoginRequiredMixin, UpdateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy('home_budget:transaction_detail', kwargs={'pk': self.object.pk})
+        return reverse_lazy('home_budget:transaction_detail',
+                            kwargs={'pk': self.object.pk})
 
 
 class TransactionInvoice(LoginRequiredMixin, DetailView):

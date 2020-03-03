@@ -1,10 +1,11 @@
-from django.views.generic import CreateView, DetailView, FormView
+from django.views.generic import CreateView, DetailView
 from django.urls import reverse_lazy
-from rest_framework.generics import RetrieveUpdateDestroyAPIView, ListCreateAPIView
+from rest_framework.generics import RetrieveUpdateDestroyAPIView,\
+                                    ListCreateAPIView
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
 from .models import UserProfile
-from .forms import SignUpForm, LoginForm
+from .forms import SignUpForm
 from .serializers import ProfileSerializer
 
 

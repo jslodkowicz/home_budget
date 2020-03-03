@@ -35,8 +35,12 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
-    path('swagger/yaml/', schema_view.without_ui(cache_timeout=0), name='schema-yaml'),
-    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('swagger/yaml/',
+         schema_view.without_ui(cache_timeout=0),
+         name='schema-yaml'),
+    path('swagger/',
+         schema_view.with_ui('swagger', cache_timeout=0),
+         name='schema-swagger-ui'),
     path('admin/', admin.site.urls),
     path('', include('transactions.urls')),
     path('accounts/', include('accounts.urls')),
