@@ -1,5 +1,4 @@
 from django.urls import reverse_lazy
-from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView, DeleteView,\
@@ -11,6 +10,7 @@ from rest_framework.generics import RetrieveUpdateDestroyAPIView,\
 from rest_framework.permissions import IsAuthenticated
 from django.http import HttpResponseRedirect
 
+from accounts.models import UserProfile
 from .models import Transaction, Wallet
 from .serializers import TransactionSerializer, WalletSerializer
 from .forms import TransferForm, TransactionForm, WalletInvitationForm
@@ -102,7 +102,7 @@ class WalletContributor(LoginRequiredMixin, FormView):
         wallet = Wallet.objects.get(id=self.kwargs["pk"])
         cd = form.cleaned_data
         try:
-            invited_user = User.objects.get(email=cd['invite'])
+            invited_user = UserProfile.objects.get(email=cd['invite'])
             send_mail(
                 'Invitation to wallet',
                 f'User {self.request.user} has invited you \
@@ -112,7 +112,7 @@ class WalletContributor(LoginRequiredMixin, FormView):
                 fail_silently=False
             )
             wallet.user.add(invited_user)
-        except User.DoesNotExist:
+        except UserProfile.DoesNotExist:
             pass
 
         return HttpResponseRedirect('/wallets')
@@ -181,18 +181,18 @@ class Transfer(LoginRequiredMixin, FormView):
 
     def form_valid(self, form):
         cd = form.cleaned_data
-        a = cd['wallet_from'].transactions.create(
+        wallet_from = cd['wallet_from'].transactions.create(
             category='TRANSFER',
             title=cd['title'],
             amount=cd['amount'],
             type='EXPENSE'
         )
-        b = cd['wallet_to'].transactions.create(
+        wallet_to = cd['wallet_to'].transactions.create(
             category='TRANSFER',
             title=cd['title'],
             amount=cd['amount'],
             type='INCOME'
         )
-        a.user.add(self.request.user)
-        b.user.add(self.request.user)
+        wallet_from.user.add(self.request.user)
+        wallet_to.user.add(self.request.user)
         return HttpResponseRedirect('/wallets/')

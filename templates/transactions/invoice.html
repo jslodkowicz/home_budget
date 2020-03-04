@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<img src="{{ transaction.invoice.url }}" class="btn btn-light mb-4" alt="">
+    <div class="m-1 pb-1">
+    <p><button class="btn btn-info" onclick="history.back()">Go back</button></p>
+    <p><img src="{{ transaction.invoice.url }}" class="btn btn-light mb-4" alt=""></p>
+    </div>
 {% endblock %}

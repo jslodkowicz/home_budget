@@ -10,11 +10,11 @@
               <th scope="col">Action</th>
             </tr>
           </thead>
-    {% for profile in wallet.profile.all %}
+    {% for user in wallet.user.all %}
           <tbody>
             <tr>
-              <td>{{ profile.user.username }}</td>
-              <td>{{ profile.user.email }}</td>
+              <td>{{ user.first_name }}</td>
+              <td>{{ user.email }}</td>
               {% if profile.id == request.user.id %}
                   <td><button class="btn btn-secondary btn-sm" onclick="#">Delete</button></td>
               {% else %}
@@ -44,7 +44,7 @@
               <td>{% if transaction.type == 'EXPENSE' %}-{{ transaction.amount }}{% else %}{{ transaction.amount }}{% endif %}</td>
               <td>{{ transaction.created }}</td>
               <td><a href="{% url 'home_budget:transaction_detail' transaction.id %}">Detail</td>
-              <td>{{ transaction.profile.all|transaction_user }}</td>
+              <td>{{ transaction.user.all|transaction_user }}</td>
             </tr>
             {% endfor %}
           </tbody>
