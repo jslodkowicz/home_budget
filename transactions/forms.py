@@ -40,7 +40,15 @@ class DateInput(forms.DateInput):
 class TransactionForm(forms.ModelForm):
     class Meta:
         model = Transaction
-        fields = ['wallet', 'category', 'title', 'amount', 'type', 'created', 'invoice']
+        fields = [
+            'wallet',
+            'category',
+            'title',
+            'amount',
+            'type',
+            'created',
+            'invoice'
+        ]
         widgets = {
             'created': DateInput(),
         }
