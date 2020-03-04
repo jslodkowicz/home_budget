@@ -4,10 +4,12 @@ from .models import Transaction, Wallet
 
 
 class TransactionSerializer(serializers.ModelSerializer):
+    """Serialize transactions"""
 
     class Meta:
         model = Transaction
         fields = (
+            'id',
             'wallet',
             'category',
             'title',
@@ -18,11 +20,12 @@ class TransactionSerializer(serializers.ModelSerializer):
 
 
 class WalletSerializer(serializers.ModelSerializer):
+    """Serialize wallets"""
 
     class Meta:
         model = Wallet
         fields = (
-            'user',
+            'id',
             'name',
             'balance'
         )

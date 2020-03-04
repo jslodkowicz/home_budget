@@ -4,3 +4,5 @@ djangorestframework
 mysqlclient
 django-crispy-forms
 flake8
+drf-yasg
+pillow

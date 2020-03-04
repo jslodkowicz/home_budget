@@ -10,7 +10,7 @@ class TransferForm(forms.Form):
         label='From',
     )
     wallet_to = forms.ModelChoiceField(
-        queryset=Wallet.objects.filter(profile__user__is_active=True),
+        queryset=Wallet.objects.filter(user__is_active=True),
         to_field_name='name',
         label='To',
     )
@@ -21,7 +21,7 @@ class TransferForm(forms.Form):
         self.request = kwargs.pop('request', None)
         super().__init__(*args, **kwargs)
         self.fields['wallet_from'].queryset = Wallet.objects.filter(
-                                              profile__user=self.request.user)
+                                              user=self.request.user)
         self.fields['wallet_to'].queryset = Wallet.objects.all().distinct()
 
     def clean(self):
@@ -36,13 +36,13 @@ class TransferForm(forms.Form):
 class TransactionForm(forms.ModelForm):
     class Meta:
         model = Transaction
-        fields = ['wallet', 'category', 'title', 'amount', 'type']
+        fields = ['wallet', 'category', 'title', 'amount', 'type', 'invoice']
 
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request', None)
         super().__init__(*args, **kwargs)
         self.fields['wallet'].queryset = Wallet.objects.filter(
-                                         profile=self.request.user.profile)
+                                         user=self.request.user)
 
 
 class WalletInvitationForm(forms.Form):

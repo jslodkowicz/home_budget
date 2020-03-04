@@ -1,9 +1,18 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 
 {% block content %}
     <h3>From {{ transaction.wallet.user }}'s {{ transaction.wallet.name }} wallet</h3>
     <h3>Current balance: {{ transaction.wallet.balance }}zł</h3>
-
+    {% if transaction.invoice %}
+        <button class="btn btn-info" onclick="location.href='{% url "home_budget:transaction_invoice" transaction.id %}'">See Invoice</button>
+    {% else %}
+        <form action="" method="post" class="mb-4">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit" class="btn btn-success">Upload invoice</button>
+        </form>
+    {% endif %}
     <div class="my-4">
         <button class="btn btn-danger" onclick="location.href='{% url "home_budget:transaction_delete" transaction.id %}'">Delete transaction</button>
     </div>

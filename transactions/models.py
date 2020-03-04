@@ -4,14 +4,23 @@ from .enums import TransactionTypes, TransactionCategories
 
 
 class Wallet(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-    balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    """Model for storing wallets"""
+    name = models.CharField(
+        max_length=100,
+        unique=True
+    )
+    balance = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0
+    )
 
     def __str__(self) -> str:
         return f'{self.name} ({self.balance} zł)'
 
 
 class Transaction(models.Model):
+    """Model for storing individual transactions"""
     wallet = models.ForeignKey(Wallet, related_name='transactions',
                                on_delete=models.CASCADE)
     category = models.CharField(max_length=50,
@@ -20,8 +29,10 @@ class Transaction(models.Model):
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     type = models.CharField(max_length=50, choices=TransactionTypes.choices())
     created = models.DateTimeField(auto_now_add=True)
+    invoice = models.ImageField(upload_to='invoices/', blank=True)
 
-    def save(self, *args, **kwargs):
+    def save(self, *args, **kwargs) -> None:
+        """A new transaction updates its wallet balance"""
         if not self.id:
             if self.type == 'EXPENSE':
                 super().save(*args, **kwargs)
@@ -34,7 +45,8 @@ class Transaction(models.Model):
         else:
             super().save(*args, **kwargs)
 
-    def delete(self, *args, **kwargs):
+    def delete(self, *args, **kwargs) -> None:
+        """A deleted transaction updates its wallet balance"""
         if self.type == 'EXPENSE':
             super().delete(*args, **kwargs)
             self.wallet.balance += self.amount
