@@ -17,9 +17,11 @@ class UserProfileManager(BaseUserManager):
         if not email:
             raise ValueError('Users must have an email address.')
         email = self.normalize_email(email)
-        user = self.model(email=email,
-                          first_name=first_name,
-                          last_name=last_name)
+        user = self.model(
+            email=email,
+            first_name=first_name,
+            last_name=last_name
+        )
 
         user.set_password(password)
         user.save(using=self.db)
@@ -35,7 +37,6 @@ class UserProfileManager(BaseUserManager):
         return user
 
     def get_by_natural_key(self, email_):
-        print(email_)
         return self.get(email=email_)
 
 
@@ -58,19 +59,19 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name']
 
-    def get_full_name(self):
+    def get_full_name(self) -> str:
         """Used to get a users full name"""
         return f'{self.first_name} {self.last_name}'
 
-    def get_short_name(self):
+    def get_short_name(self) -> str:
         """Used to get a users short name"""
         return self.first_name
 
-    def natural_key(self):
+    def natural_key(self) -> str:
         """Used to get a users natural key"""
         return self.email
 
-    def __str__(self):
+    def __str__(self) -> str:
         """Django uses this when it needs to
         convert the object to a string"""
         return self.email
