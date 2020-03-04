@@ -51,10 +51,14 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
 
     objects = UserProfileManager()
 
-    wallet = models.ManyToManyField(Wallet,
-                                    related_name='user')
-    transaction = models.ManyToManyField(Transaction,
-                                         related_name='user')
+    wallet = models.ManyToManyField(
+        Wallet,
+        related_name='user'
+    )
+    transaction = models.ManyToManyField(
+        Transaction,
+        related_name='user'
+    )
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name']
