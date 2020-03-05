@@ -1,7 +1,11 @@
 from django.utils import timezone
 from django.db import models
 
-from .enums import TransactionTypes, TransactionCategories
+from .enums import (
+    TransactionTypes,
+    TransactionCategories,
+    Currency
+)
 
 
 class Wallet(models.Model):
@@ -15,9 +19,13 @@ class Wallet(models.Model):
         decimal_places=2,
         default=0
     )
+    currency = models.CharField(
+        max_length=50,
+        choices=Currency.choices()
+    )
 
     def __str__(self) -> str:
-        return f'{self.name} ({self.balance} zł)'
+        return f'{self.name} ({self.balance} {self.currency})'
 
 
 class Transaction(models.Model):

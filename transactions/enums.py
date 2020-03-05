@@ -23,3 +23,13 @@ class TransactionCategories(Enum):
     @classmethod
     def choices(cls):
         return [(key.name, key.value) for key in cls]
+
+
+class Currency(Enum):
+
+    EUR = 'euro'
+    PLN = 'złoty'
+
+    @classmethod
+    def choices(cls):
+        return [(key.name, key.value) for key in cls]
