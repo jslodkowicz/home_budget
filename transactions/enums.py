@@ -2,6 +2,7 @@ from enum import Enum
 
 
 class TransactionTypes(Enum):
+    """List of all available transaction types"""
 
     EXPENSE = 'expense'
     INCOME = 'income'
@@ -12,6 +13,7 @@ class TransactionTypes(Enum):
 
 
 class TransactionCategories(Enum):
+    """List of all available transaction categories"""
 
     FOOD = 'food'
     BILLS = 'bills'
@@ -26,9 +28,11 @@ class TransactionCategories(Enum):
 
 
 class Currency(Enum):
+    """List of all available wallet currencies"""
 
     EUR = 'euro'
     PLN = 'złoty'
+    CZK = 'koruna česká'
 
     @classmethod
     def choices(cls):
