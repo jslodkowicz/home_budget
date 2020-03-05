@@ -7,8 +7,6 @@ services:
 
 before_script:
   - pip install docker-compose
-  - docker-compose run app sh -c "python manage.py makemigrations"
-  - docker-compose run app sh -c "python manage.py migrate"
 
 script:
   - docker-compose run app sh -c "python manage.py test && flake8"

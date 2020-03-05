@@ -16,7 +16,7 @@
             <tr>
                 <td><a href="{% url 'home_budget:wallet_detail' wallet.id %}">{{ wallet.name }}</a></td>
                 <td>{{ wallet.balance }}</td>
-                <td>{{ wallet.profile.all|transaction_user }}</td>
+                <td>{{ wallet.user.all|transaction_user }}</td>
             </tr>
         </tbody>
       {% endfor %}

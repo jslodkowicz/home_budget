@@ -1,267 +1,181 @@
 [
   {
-    "model": "auth.user",
+    "model": "accounts.userprofile",
     "pk": 1,
     "fields": {
-      "password": "pbkdf2_sha256$180000$6UtYT926S9JP$DhyTuYRAh+nrIf3lcWiBMaFEAeSKOVHAF364HHFqyUI=",
+      "password": "pbkdf2_sha256$180000$Etdgh6uTT2fq$JnCm7GwuL+dctuQZOit6h79PqPD/Fz6qSqC9yedNhIA=",
       "last_login": null,
       "is_superuser": true,
-      "username": "admin",
-      "first_name": "",
-      "last_name": "",
       "email": "admin@example.com",
-      "is_staff": true,
+      "first_name": "Adam",
+      "last_name": "Admin",
       "is_active": true,
-      "date_joined": "2020-02-12T06:34:07.804Z",
+      "is_staff": true,
       "groups": [],
-      "user_permissions": []
+      "user_permissions": [],
+      "wallet": [],
+      "transaction": []
     }
   },
   {
-    "model": "auth.user",
+    "model": "accounts.userprofile",
     "pk": 2,
     "fields": {
-      "password": "pbkdf2_sha256$180000$NmDisFhT7db1$HcL3NUNORKM7rIuPJZG6KO/e8GKWtyZDR8M3YKGnBTA=",
-      "last_login": "2020-02-12T06:36:22.193Z",
+      "password": "pbkdf2_sha256$180000$9EQOuYle1BHZ$8VoQWtwUb1lCXNTDgqryTjqRLzqwI5qAkLEHbolKdIY=",
+      "last_login": "2020-03-04T13:09:03.141Z",
       "is_superuser": false,
-      "username": "user_1",
-      "first_name": "Helmut",
+      "email": "test_user_1@example.com",
+      "first_name": "Jerry",
       "last_name": "Tester",
-      "email": "helmut@example.com",
-      "is_staff": false,
       "is_active": true,
-      "date_joined": "2020-02-12T06:35:43.215Z",
+      "is_staff": false,
       "groups": [],
-      "user_permissions": []
+      "user_permissions": [],
+      "wallet": [
+        1,
+        2,
+        4
+      ],
+      "transaction": [
+        1,
+        2,
+        3
+      ]
     }
   },
   {
-    "model": "auth.user",
+    "model": "accounts.userprofile",
     "pk": 3,
     "fields": {
-      "password": "pbkdf2_sha256$180000$1W4T3DmI4h4n$7VOfTe1uby5k8RNT7E24ZZjacaUVOVC0JsQ26jjVQV0=",
-      "last_login": "2020-02-12T06:42:46.175Z",
+      "password": "pbkdf2_sha256$180000$jJfgMfy4vLSm$u4K2/zyRhFCvNdFWS7MOnScvhzSWc12RA1rA3BzTbSY=",
+      "last_login": "2020-03-04T13:22:22.101Z",
       "is_superuser": false,
-      "username": "user_2",
-      "first_name": "Helga",
+      "email": "test_user_2@example.com",
+      "first_name": "Hanna",
       "last_name": "Tester",
-      "email": "helga@example.com",
-      "is_staff": false,
       "is_active": true,
-      "date_joined": "2020-02-12T06:36:13.031Z",
+      "is_staff": false,
       "groups": [],
-      "user_permissions": []
+      "user_permissions": [],
+      "wallet": [
+        3,
+        4
+      ],
+      "transaction": [
+        4,
+        5,
+        6
+      ]
     }
   },
   {
     "model": "transactions.wallet",
     "pk": 1,
     "fields": {
-      "name": "Bie\u017a\u0105cy",
-      "balance": "3605.00"
+      "name": "Savings",
+      "balance": "15900.00"
     }
   },
   {
     "model": "transactions.wallet",
     "pk": 2,
     "fields": {
-      "name": "Oszcz\u0119dno\u015bci",
-      "balance": "69000.00"
+      "name": "Current",
+      "balance": "3815.00"
     }
   },
   {
     "model": "transactions.wallet",
     "pk": 3,
     "fields": {
-      "name": "Na wakacje",
-      "balance": "1550.00"
+      "name": "New",
+      "balance": "4100.00"
     }
   },
   {
     "model": "transactions.wallet",
     "pk": 4,
     "fields": {
-      "name": "Codzienny",
-      "balance": "2815.00"
+      "name": "wsp\u00f3lny",
+      "balance": "800.00"
     }
   },
   {
     "model": "transactions.transaction",
     "pk": 1,
     "fields": {
-      "wallet": 1,
-      "category": "BILLS",
-      "title": "pr\u0105d",
+      "wallet": 2,
+      "category": "CAR",
+      "title": "fuel",
       "amount": "120.00",
       "type": "EXPENSE",
-      "created": "2020-02-12T06:40:53.854Z"
+      "created": "2020-03-04",
+      "invoice": "invoices/inv_3.jpg"
     }
   },
   {
     "model": "transactions.transaction",
     "pk": 2,
     "fields": {
-      "wallet": 1,
-      "category": "CAR",
-      "title": "paliwo",
-      "amount": "250.00",
+      "wallet": 2,
+      "category": "TRANSPORT",
+      "title": "train",
+      "amount": "65.00",
       "type": "EXPENSE",
-      "created": "2020-02-12T06:41:06.725Z"
+      "created": "2020-02-12",
+      "invoice": "invoices/biedronka_u38uRou.jpg"
     }
   },
   {
     "model": "transactions.transaction",
     "pk": 3,
-    "fields": {
-      "wallet": 1,
-      "category": "TRANSPORT",
-      "title": "migawka",
-      "amount": "225.00",
-      "type": "EXPENSE",
-      "created": "2020-02-12T06:41:20.178Z"
-    }
-  },
-  {
-    "model": "transactions.transaction",
-    "pk": 4,
     "fields": {
       "wallet": 1,
       "category": "INCOME",
-      "title": "od miko\u0142aja",
-      "amount": "300.00",
+      "title": "wyp\u0142ata",
+      "amount": "500.00",
       "type": "INCOME",
-      "created": "2020-02-12T06:41:38.378Z"
+      "created": "2020-03-01",
+      "invoice": "invoices/inv_test.png"
+    }
+  },
+  {
+    "model": "transactions.transaction",
+    "pk": 4,
+    "fields": {
+      "wallet": 3,
+      "category": "TRANSPORT",
+      "title": "plane ticket",
+      "amount": "500.00",
+      "type": "EXPENSE",
+      "created": "2020-03-04",
+      "invoice": "invoices/lidl_8ioobaA.jpg"
     }
   },
   {
     "model": "transactions.transaction",
     "pk": 5,
     "fields": {
-      "wallet": 1,
+      "wallet": 3,
       "category": "TRANSFER",
-      "title": "skarbonka",
-      "amount": "1000.00",
+      "title": "przelew",
+      "amount": "400.00",
       "type": "EXPENSE",
-      "created": "2020-02-12T06:42:16.771Z"
+      "created": "2020-03-04",
+      "invoice": ""
     }
   },
   {
     "model": "transactions.transaction",
     "pk": 6,
     "fields": {
-      "wallet": 2,
-      "category": "TRANSFER",
-      "title": "skarbonka",
-      "amount": "1000.00",
-      "type": "INCOME",
-      "created": "2020-02-12T06:42:16.781Z"
-    }
-  },
-  {
-    "model": "transactions.transaction",
-    "pk": 7,
-    "fields": {
       "wallet": 1,
       "category": "TRANSFER",
-      "title": "wakacje",
-      "amount": "100.00",
-      "type": "EXPENSE",
-      "created": "2020-02-12T06:42:34.700Z"
-    }
-  },
-  {
-    "model": "transactions.transaction",
-    "pk": 8,
-    "fields": {
-      "wallet": 3,
-      "category": "TRANSFER",
-      "title": "wakacje",
-      "amount": "100.00",
+      "title": "przelew",
+      "amount": "400.00",
       "type": "INCOME",
-      "created": "2020-02-12T06:42:34.709Z"
-    }
-  },
-  {
-    "model": "transactions.transaction",
-    "pk": 9,
-    "fields": {
-      "wallet": 4,
-      "category": "TRANSFER",
-      "title": "wakacje",
-      "amount": "150.00",
-      "type": "EXPENSE",
-      "created": "2020-02-12T06:43:34.447Z"
-    }
-  },
-  {
-    "model": "transactions.transaction",
-    "pk": 10,
-    "fields": {
-      "wallet": 3,
-      "category": "TRANSFER",
-      "title": "wakacje",
-      "amount": "150.00",
-      "type": "INCOME",
-      "created": "2020-02-12T06:43:34.460Z"
-    }
-  },
-  {
-    "model": "transactions.transaction",
-    "pk": 11,
-    "fields": {
-      "wallet": 4,
-      "category": "FOOD",
-      "title": "pizza",
-      "amount": "35.00",
-      "type": "EXPENSE",
-      "created": "2020-02-12T06:43:53.610Z"
-    }
-  },
-  {
-    "model": "accounts.profile",
-    "pk": 1,
-    "fields": {
-      "user": 1,
-      "wallet": [],
-      "transaction": []
-    }
-  },
-  {
-    "model": "accounts.profile",
-    "pk": 2,
-    "fields": {
-      "user": 2,
-      "wallet": [
-        1,
-        2,
-        3
-      ],
-      "transaction": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8
-      ]
-    }
-  },
-  {
-    "model": "accounts.profile",
-    "pk": 3,
-    "fields": {
-      "user": 3,
-      "wallet": [
-        3,
-        4
-      ],
-      "transaction": [
-        9,
-        10,
-        11
-      ]
+      "created": "2020-03-04",
+      "invoice": ""
     }
   }
 ]

@@ -33,10 +33,25 @@ class TransferForm(forms.Form):
             ])
 
 
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
+
 class TransactionForm(forms.ModelForm):
     class Meta:
         model = Transaction
-        fields = ['wallet', 'category', 'title', 'amount', 'type', 'invoice']
+        fields = [
+            'wallet',
+            'category',
+            'title',
+            'amount',
+            'type',
+            'created',
+            'invoice'
+        ]
+        widgets = {
+            'created': DateInput(),
+        }
 
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request', None)

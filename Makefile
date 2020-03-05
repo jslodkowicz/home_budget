@@ -9,5 +9,3 @@ build:
 	docker-compose build
 up:
 	docker-compose up
-swagger-validator:
-	docker run --name swagger-validator -d -p 8189:8080 --add-host test.local:10.0.75.1 swaggerapi/swagger-validator
