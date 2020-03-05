@@ -80,7 +80,6 @@ class WalletCreate(LoginRequiredMixin, CreateView):
 
 
 class WalletDelete(LoginRequiredMixin, DeleteView):
-    """Deleting an existing wallet"""
     model = Wallet
     success_url = reverse_lazy('home_budget:wallets')
 
@@ -121,7 +120,7 @@ class WalletContributor(LoginRequiredMixin, FormView):
             wallet.user.add(invited_user)
         except UserProfile.DoesNotExist:
             pass
-
+refs/remotes/origin/24-env-file
         return HttpResponseRedirect('/wallets')
 
 
