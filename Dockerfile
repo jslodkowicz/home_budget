@@ -11,6 +11,7 @@ RUN pip install -r /requirements.txt
 RUN mkdir /home_budget
 WORKDIR /home_budget
 COPY . /home_budget
+EXPOSE 8000
 
 RUN useradd -ms /bin/bash user
 RUN chown -R user:user /home_budget

@@ -196,12 +196,6 @@ class Transfer(LoginRequiredMixin, FormView):
 
     def form_valid(self, form):
         cd = form.cleaned_data
-        wallet_from = cd['wallet_from'].transactions.create(
-            category='TRANSFER',
-            title=cd['title'],
-            amount=cd['amount'],
-            type='EXPENSE'
-        )
         if cd['wallet_from'].currency != cd['wallet_to'].currency:
             exchange_rate = currency_converter(
                 cd['wallet_from'].currency,
@@ -223,6 +217,12 @@ class Transfer(LoginRequiredMixin, FormView):
                 amount=cd['amount'],
                 type='INCOME'
             )
+        wallet_from = cd['wallet_from'].transactions.create(
+            category='TRANSFER',
+            title=cd['title'],
+            amount=cd['amount'],
+            type='EXPENSE'
+        )
         wallet_from.user.add(self.request.user)
         wallet_to.user.add(self.request.user)
         return HttpResponseRedirect('/wallets/')
