@@ -30,7 +30,7 @@ pycodestyle==2.5.0        # via flake8
 pyflakes==2.1.1           # via flake8
 pyparsing==2.4.6          # via packaging
 pytz==2019.3              # via django
-requests==2.22.0          # via coreapi
+requests==2.22.0
 ruamel.yaml.clib==0.2.0   # via ruamel.yaml
 ruamel.yaml==0.16.10      # via drf-yasg
 six==1.14.0               # via drf-yasg, packaging, pip-tools
