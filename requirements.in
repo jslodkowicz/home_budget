@@ -7,3 +7,4 @@ flake8
 drf-yasg
 pillow
 requests
+python-dotenv

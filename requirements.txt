@@ -29,6 +29,7 @@ pip-tools==4.4.0
 pycodestyle==2.5.0        # via flake8
 pyflakes==2.1.1           # via flake8
 pyparsing==2.4.6          # via packaging
+python-dotenv==0.12.0
 pytz==2019.3              # via django
 requests==2.22.0
 ruamel.yaml.clib==0.2.0   # via ruamel.yaml
