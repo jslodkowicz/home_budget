@@ -17,11 +17,11 @@ Simple web app for managing home budget.
 - `make data` will load fixtures with sample data
 - `make test` will run unittests and flake8 code check
 
-[Mailhog](localhost:8025) service is used for handling mail functionality of an app.
+[Mailhog](http://localhost:8025) service is used for handling mail functionality of an app.
 
 ### API
 
-[Swagger UI](localhost:8000/swagger) is used as a default tool for API documentation and testing.
+[Swagger UI](http://localhost:8000/swagger) is used as a default tool for API documentation and testing.
 
 ### pip-tools
 
