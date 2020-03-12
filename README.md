@@ -19,6 +19,14 @@ Simple web app for managing home budget.
 
 [Mailhog](http://localhost:8025) service is used for handling mail functionality of an app.
 
+For test purposes there are 3 user instances, credentials are listed below:
+
+- _admin@example.com / admin_
+- _henry@test.com / Haslo123_
+- _anna@test.com / Haslo123_
+
+To use AWS and currency converter features, you must copy .env file to `home_budget/home_budget` directory.
+
 ### API
 
 [Swagger UI](http://localhost:8000/swagger) is used as a default tool for API documentation and testing.
