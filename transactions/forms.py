@@ -33,6 +33,10 @@ class TransferForm(forms.Form):
             ])
 
 
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
+
 class TransactionForm(forms.ModelForm):
     class Meta:
         model = Transaction

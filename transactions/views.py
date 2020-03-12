@@ -120,7 +120,6 @@ class WalletContributor(LoginRequiredMixin, FormView):
             wallet.user.add(invited_user)
         except UserProfile.DoesNotExist:
             pass
-refs/remotes/origin/24-env-file
         return HttpResponseRedirect('/wallets')
 
 

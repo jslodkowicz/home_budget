@@ -42,7 +42,7 @@ class Transaction(models.Model):
     title = models.CharField(max_length=100)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     type = models.CharField(max_length=50, choices=TransactionTypes.choices())
-    created = models.DateField(default=timezone.now)
+    created = models.DateField(default=timezone.localdate)
     invoice = models.ImageField(upload_to='invoices/', blank=True)
 
     def save(self, *args, **kwargs) -> None:
