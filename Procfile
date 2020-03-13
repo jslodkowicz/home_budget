@@ -1,1 +1,1 @@
-web: gunicorn home_budget.wsgi
+web: gunicorn home_budget.wsgi --log-file-

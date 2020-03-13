@@ -30,7 +30,7 @@ SECRET_KEY = '*j)8id73wqd4#y&sayb0@%^io^h5)n1&s#a2)ftw$9a3k+@%!6'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://home-budget-2020.herokuapp.com/']
 
 
 # Application definition
@@ -192,3 +192,7 @@ DEFAULT_FILE_STORAGE = 'home_budget.storage_backends.PublicMediaStorage'
 
 AWS_PRIVATE_MEDIA_LOCATION = 'media/private'
 PRIVATE_FILE_STORAGE = 'home_budget.storage_backends.PrivateMediaStorage'
+
+import dj_database_url
+prod_db = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(prod_db)
