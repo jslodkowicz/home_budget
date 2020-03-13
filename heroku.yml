@@ -1,0 +1,9 @@
+setup:
+  addons:
+    - plan: cleardb
+      as: db
+  config:
+    S3_BUCKET: home-budget-files
+build:
+  docker:
+    web: Dockerfile
