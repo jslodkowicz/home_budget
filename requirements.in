@@ -13,4 +13,4 @@ django-storages
 gunicorn
 whitenoise
 dj-database-url
-psycopg2
+psycopg2-binary
