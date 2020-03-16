@@ -20,6 +20,7 @@ docutils==0.15.2          # via botocore
 drf-yasg==1.17.1
 entrypoints==0.3          # via flake8
 flake8==3.7.9
+gunicorn==20.0.4
 idna==2.8                 # via requests
 inflection==0.3.1         # via drf-yasg
 itypes==1.1.0             # via coreapi
@@ -45,3 +46,7 @@ six==1.14.0               # via drf-yasg, packaging, pip-tools, python-dateutil
 sqlparse==0.3.0           # via django
 uritemplate==3.0.1        # via coreapi, drf-yasg
 urllib3==1.25.8           # via botocore, requests
+whitenoise==5.0.1
+
+# The following packages are considered to be unsafe in a requirements file:
+# setuptools

@@ -28,9 +28,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '*j)8id73wqd4#y&sayb0@%^io^h5)n1&s#a2)ftw$9a3k+@%!6'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'https://home-budget-2020.herokuapp.com/']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'https://manage-home-budget.herokuapp.com/']
 
 
 # Application definition
@@ -186,13 +186,10 @@ AWS_S3_OBJECT_PARAMETERS = {
 AWS_STATIC_LOCATION = 'static'
 STATICFILES_STORAGE = 'home_budget.storage_backends.StaticStorage'
 STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_STATIC_LOCATION)
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 AWS_PUBLIC_MEDIA_LOCATION = 'media/public'
 DEFAULT_FILE_STORAGE = 'home_budget.storage_backends.PublicMediaStorage'
 
 AWS_PRIVATE_MEDIA_LOCATION = 'media/private'
 PRIVATE_FILE_STORAGE = 'home_budget.storage_backends.PrivateMediaStorage'
-
-import dj_database_url
-prod_db = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(prod_db)
