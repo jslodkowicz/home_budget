@@ -90,22 +90,17 @@ WSGI_APPLICATION = 'home_budget.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'db',
-        'USER': 'admin',
-        'PASSWORD': 'admin',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
         'HOST': 'db',
-        'PORT': '3306',
-        'OPTIONS': {
-            'charset': 'utf8mb4',
-        }
+        'PORT': '5432',
     }
 }
 
 db_from_env = dj_database_url.config(conn_max_age=600)
-
-if db_from_env:
-    DATABASES['default'].update(db_from_env)
+DATABASES['default'].update(db_from_env)
 
 if 'test' in sys.argv:
     DATABASES['default'] = {
