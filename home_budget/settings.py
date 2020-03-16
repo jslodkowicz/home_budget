@@ -31,7 +31,7 @@ SECRET_KEY = '*j)8id73wqd4#y&sayb0@%^io^h5)n1&s#a2)ftw$9a3k+@%!6'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'https://manage-home-budget.herokuapp.com/']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'manage-home-budget.herokuapp.com']
 
 
 # Application definition
