@@ -89,17 +89,17 @@ WSGI_APPLICATION = 'home_budget.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': 'db',
-    #     'USER': 'admin',
-    #     'PASSWORD': 'admin',
-    #     'HOST': 'db',
-    #     'PORT': '3306',
-    #     'OPTIONS': {
-    #         'charset': 'utf8mb4',
-    #     }
-    # }
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'db',
+        'USER': 'admin',
+        'PASSWORD': 'admin',
+        'HOST': 'db',
+        'PORT': '3306',
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+        }
+    }
 }
 
 db_from_env = dj_database_url.config(conn_max_age=600)
