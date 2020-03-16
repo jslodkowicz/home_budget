@@ -97,13 +97,15 @@ DATABASES = {
         'HOST': 'db',
         'PORT': '3306',
         'OPTIONS': {
-            'charset': 'utf8',
+            'charset': 'utf8mb4',
         }
     }
 }
 
 db_from_env = dj_database_url.config(conn_max_age=600)
-DATABASES['default'].update(db_from_env)
+
+if db_from_env:
+    DATABASES['default'].update(db_from_env)
 
 if 'test' in sys.argv:
     DATABASES['default'] = {
